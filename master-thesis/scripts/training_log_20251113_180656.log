@@ -1,0 +1,13 @@
+2025-11-13 18:06:56,661 - MainThread - INFO - ✓ GPU memory growth enabled for 1 device(s)
+2025-11-13 18:06:56,661 - MainThread - INFO - 
+=== Experiment 1/1: 200_2 ===
+2025-11-13 18:06:56,898 - MainThread - INFO - Loaded data shape: X=(9799368, 4), y=(9799368, 1)
+2025-11-13 18:06:57,608 - MainThread - INFO - Final splits - Train: 2808323, Val: 702081, Test: 6288964
+2025-11-13 18:06:58,611 - MainThread - INFO - Model parameters: {'input_dim': 4, 'output_dim': 1, 'layer_sizes': [256, 256, 128, 128, 64, 64, 1], 'activation': 'tanh', 'learning_rate': 0.0001, 'w_data': 0.001, 'w_pde': 1e-17, 'w_bc': 1e-06, 'w_ic': 1e-07}
+2025-11-13 18:06:58,611 - MainThread - INFO - Training parameters: {'epochs': 500, 'batch_size': 4096, 'learning_rate': 0.0001, 'early_stopping_patience': 50, 'lr_reduce_patience': 25, 'lr_reduce_factor': 0.5, 'min_lr': 1e-06}
+2025-11-13 18:06:58,611 - MainThread - INFO - Starting training for experiment: 200_2
+2025-11-13 18:06:58,611 - MainThread - INFO - Configuration - Epochs: 500, Data Batch Size: 4096, Physics Batch Size: 4096
+2025-11-13 18:06:58,613 - MainThread - INFO - Physics parameters loaded - V: 10.1V, I: 70A, Efficiency: 0.7
+2025-11-13 18:06:58,820 - MainThread - INFO - Dataset sizes - Train: 2808323, Validation: 702081, Test: 6288964
+2025-11-13 18:06:59,430 - MainThread - WARNING - Calling GradientTape.gradient on a persistent tape inside its context is significantly less efficient than calling it outside the context (it causes the gradient ops to be recorded on the tape, leading to increased CPU and memory usage). Only call GradientTape.gradient inside the context if you actually want to trace the gradient in order to compute higher order derivatives.
+2025-11-13 18:10:47,539 - MainThread - INFO - [200_2] Epoch 1/500 | Avg Total Loss: 2.7628e+06 | Val Data Loss: 3.3516e+05 | (Data=3.374e+05, PDE=7.030e+12, BC=3.474e+07, IC=8.895e+04) | w_data=1.0e+00, w_pde=1.0e-12, w_bc=1.0e-06, w_ic=1.0e-03

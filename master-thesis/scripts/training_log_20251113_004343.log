@@ -1,0 +1,4 @@
+2025-11-13 00:43:43,812 - MainThread - INFO - ✓ GPU memory growth enabled for 1 device(s)
+2025-11-13 00:43:43,812 - MainThread - INFO - 
+=== Experiment 1/1: 200_2 ===
+2025-11-13 00:43:44,729 - MainThread - INFO - Final splits - Train: 2085334, Val: 521334, Test: 7192700

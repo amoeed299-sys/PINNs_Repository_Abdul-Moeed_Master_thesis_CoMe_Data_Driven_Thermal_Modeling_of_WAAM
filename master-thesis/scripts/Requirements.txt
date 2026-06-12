@@ -1,0 +1,10 @@
+pyyaml
+polars
+numpy
+pathlib
+tensorflow[and-cuda]
+scikit-learn
+scipy
+matplotlib
+pandas
+pyarrow

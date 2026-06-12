@@ -1,0 +1,22 @@
+2025-11-15 01:13:32,890 - MainThread - INFO - ✓ GPU memory growth enabled for 1 device(s)
+2025-11-15 01:13:32,890 - MainThread - INFO - 
+=== Experiment 1/1: 200_2 ===
+2025-11-15 01:13:33,132 - MainThread - INFO - Loaded data shape: X=(9799368, 4), y=(9799368, 1)
+2025-11-15 01:13:33,962 - MainThread - INFO - Final splits - Train: 2808323, Val: 702081, Test: 6288964
+2025-11-15 01:13:34,144 - MainThread - INFO - Input scaler for 200_2 - mins: [0.         0.0149951  0.16491048 0.004     ], scales: [1.0038600e+03 2.0000981e-01 5.1790476e-03 3.2060756e-03]
+2025-11-15 01:13:35,272 - MainThread - INFO - [200_2] Starting Stage 1 (data-only) training for 50 epochs...
+2025-11-15 01:16:09,748 - MainThread - INFO - [200_2] Stage 1 (data-only) training complete.
+2025-11-15 01:16:09,749 - MainThread - INFO - Model parameters: {'input_dim': 4, 'output_dim': 1, 'layer_sizes': [256, 256, 128, 128, 64, 32, 1], 'activation': 'relu', 'w_data': 0.001, 'w_pde': 1e-17, 'w_bc': 1e-06, 'w_ic': 1e-07}
+2025-11-15 01:16:09,749 - MainThread - INFO - Training parameters (PINN stage): {'epochs_data_only': 50, 'epochs_pinn': 250, 'batch_size': 8192, 'learning_rate': 5e-05, 'early_stopping_patience': 40, 'lr_reduce_patience': 20, 'lr_reduce_factor': 0.5, 'min_lr': 1e-06, 'pde_warmup_epochs': 30, 'max_grad_norm': 1.0, 'bc_batch_size': 2048, 'ic_batch_size': 2048, 'max_batches_per_epoch': 200}
+2025-11-15 01:16:09,749 - MainThread - INFO - Starting PINN training for experiment: 200_2
+2025-11-15 01:16:09,749 - MainThread - INFO - Configuration - Epochs: 250, Data Batch Size: 8192, Physics Batch Size: 8192
+2025-11-15 01:16:09,752 - MainThread - INFO - Physics parameters loaded - V: 10.1V, I: 70A, Efficiency: 0.7
+2025-11-15 01:16:09,909 - MainThread - INFO - Dataset sizes - Train: 2808323, Validation: 702081, Test: 6288964
+2025-11-15 01:16:10,544 - MainThread - WARNING - Calling GradientTape.gradient on a persistent tape inside its context is significantly less efficient than calling it outside the context (it causes the gradient ops to be recorded on the tape, leading to increased CPU and memory usage). Only call GradientTape.gradient inside the context if you actually want to trace the gradient in order to compute higher order derivatives.
+2025-11-15 01:16:46,177 - MainThread - INFO - [200_2] Epoch 1/250 | Avg Total Loss: 1.8670e+02 | Val Data Loss: 1.4793e+02 | (Data=1.301e+02, PDE=8.100e+16, BC=2.482e+12, IC=1.430e+02) | w_data=1.0e+00, w_pde=0.0e+00, w_bc=0.0e+00, w_ic=0.0e+00
+2025-11-15 01:21:47,242 - MainThread - INFO - [200_2] Epoch 10/250 | Avg Total Loss: 1.0363e+02 | Val Data Loss: 9.3804e+01 | (Data=9.505e+01, PDE=9.698e+16, BC=2.551e+12, IC=3.353e+01) | w_data=1.0e+00, w_pde=0.0e+00, w_bc=0.0e+00, w_ic=0.0e+00
+2025-11-15 01:27:19,099 - MainThread - INFO - [200_2] Epoch 20/250 | Avg Total Loss: 9.4044e+01 | Val Data Loss: 7.6224e+01 | (Data=7.498e+01, PDE=9.054e+16, BC=2.124e+12, IC=1.157e+01) | w_data=1.0e+00, w_pde=0.0e+00, w_bc=0.0e+00, w_ic=0.0e+00
+2025-11-15 01:27:19,099 - MainThread - INFO - [200_2] Reducing learning rate from 5.00e-05 to 2.50e-05 after 20 epochs without sufficient improvement.
+2025-11-15 01:32:45,377 - MainThread - INFO - [200_2] Epoch 30/250 | Avg Total Loss: 7.2409e+01 | Val Data Loss: 7.1327e+01 | (Data=7.288e+01, PDE=9.036e+16, BC=2.513e+12, IC=1.392e+01) | w_data=1.0e+00, w_pde=0.0e+00, w_bc=0.0e+00, w_ic=0.0e+00
+2025-11-15 01:38:16,470 - MainThread - INFO - [200_2] Epoch 40/250 | Avg Total Loss: 2.3537e+04 | Val Data Loss: 1.0812e+04 | (Data=9.664e+03, PDE=3.531e+15, BC=1.061e+10, IC=2.729e+03) | w_data=1.0e+00, w_pde=3.4e-12, w_bc=1.7e-08, w_ic=1.0e-05
+2025-11-15 01:38:16,470 - MainThread - INFO - [200_2] Reducing learning rate from 2.50e-05 to 1.25e-05 after 20 epochs without sufficient improvement.

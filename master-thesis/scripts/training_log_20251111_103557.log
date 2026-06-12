@@ -1,0 +1,61 @@
+2025-11-11 10:35:57,674 - MainThread - INFO - ✓ GPU memory growth enabled for 1 device(s)
+2025-11-11 10:35:57,675 - MainThread - INFO - 
+=== Experiment 1/1: 200_2 ===
+2025-11-11 10:35:57,873 - MainThread - INFO - Loaded data shape: X=(9799368, 4), y=(9799368, 1)
+2025-11-11 10:35:58,425 - MainThread - INFO - Final splits - Train: 2808323, Val: 702081, Test: 6288964
+2025-11-11 10:35:59,324 - MainThread - INFO - Model parameters: {'input_dim': 4, 'output_dim': 1, 'layer_sizes': [256, 256, 128, 128, 64, 64, 1], 'activation': 'relu', 'learning_rate': 0.001, 'w_data': 1.0, 'w_pde': 0, 'w_bc': 0, 'w_ic': 0}
+2025-11-11 10:35:59,324 - MainThread - INFO - Training parameters: {'epochs': 50, 'batch_size': 262144, 'learning_rate': 0.0001, 'early_stopping_patience': 50, 'lr_reduce_patience': 25}
+2025-11-11 10:35:59,324 - MainThread - INFO - Starting training for experiment: 200_2
+2025-11-11 10:35:59,324 - MainThread - INFO - Configuration - Epochs: 50, Data Batch Size: 262144, Physics Batch Size: 262144
+2025-11-11 10:35:59,807 - MainThread - INFO - Physics parameters loaded - V: 10.1V, I: 70A, Efficiency: 0.7
+2025-11-11 10:35:59,994 - MainThread - INFO - Dataset sizes - Train: 2808323, Validation: 702081, Test: 6288964
+2025-11-11 10:36:00,659 - MainThread - WARNING - Calling GradientTape.gradient on a persistent tape inside its context is significantly less efficient than calling it outside the context (it causes the gradient ops to be recorded on the tape, leading to increased CPU and memory usage). Only call GradientTape.gradient inside the context if you actually want to trace the gradient in order to compute higher order derivatives.
+2025-11-11 10:36:03,820 - MainThread - INFO - [200_2] Epoch 1/50 | Avg Loss: 9.9081e-01 (Data=9.718e-01, PDE=2.374e+14, BC=2.130e+05, IC=6.246e+02)
+2025-11-11 10:36:26,712 - MainThread - INFO - [200_2] Epoch 10/50 | Avg Loss: 6.8000e-01 (Data=6.752e-01, PDE=3.145e+14, BC=2.056e+05, IC=6.244e+02)
+2025-11-11 10:36:52,010 - MainThread - INFO - [200_2] Epoch 20/50 | Avg Loss: 5.3125e-01 (Data=5.103e-01, PDE=5.683e+14, BC=2.053e+05, IC=6.254e+02)
+2025-11-11 10:37:17,354 - MainThread - INFO - [200_2] Epoch 30/50 | Avg Loss: 1.8656e-01 (Data=1.798e-01, PDE=4.151e+15, BC=1.997e+05, IC=6.258e+02)
+2025-11-11 10:37:42,724 - MainThread - INFO - [200_2] Epoch 40/50 | Avg Loss: 1.0507e-01 (Data=1.010e-01, PDE=9.746e+15, BC=1.972e+05, IC=6.266e+02)
+2025-11-11 10:38:08,604 - MainThread - INFO - [200_2] Epoch 50/50 | Avg Loss: 7.7808e-02 (Data=7.806e-02, PDE=1.454e+16, BC=1.950e+05, IC=6.251e+02)
+2025-11-11 10:38:08,605 - MainThread - WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+2025-11-11 10:38:08,620 - MainThread - INFO - Model saved: model_200_2.h5
+2025-11-11 10:38:08,815 - MainThread - INFO - Training plot saved for 200_2
+2025-11-11 10:38:08,815 - MainThread - INFO - Starting evaluation for 200_2
+2025-11-11 10:40:10,951 - MainThread - INFO - 
+=== Training Evaluation Metrics for experiment 200_2 ===
+2025-11-11 10:40:10,951 - MainThread - INFO - RMSE: 64.7272
+2025-11-11 10:40:10,951 - MainThread - INFO - MAE: 27.1524
+2025-11-11 10:40:10,951 - MainThread - INFO - R²: 0.9227
+2025-11-11 10:40:10,951 - MainThread - INFO - Pearson Correlation: 0.9607
+2025-11-11 10:41:13,276 - MainThread - INFO - 
+=== Validation Evaluation Metrics for experiment 200_2 ===
+2025-11-11 10:41:13,277 - MainThread - INFO - RMSE: 64.7321
+2025-11-11 10:41:13,277 - MainThread - INFO - MAE: 27.2131
+2025-11-11 10:41:13,277 - MainThread - INFO - R²: 0.9228
+2025-11-11 10:41:13,277 - MainThread - INFO - Pearson Correlation: 0.9608
+2025-11-11 10:46:09,566 - MainThread - INFO - 
+=== Test Evaluation Metrics for experiment 200_2 ===
+2025-11-11 10:46:09,566 - MainThread - INFO - RMSE: 64.0411
+2025-11-11 10:46:09,567 - MainThread - INFO - MAE: 26.2366
+2025-11-11 10:46:09,567 - MainThread - INFO - R²: 0.9222
+2025-11-11 10:46:09,567 - MainThread - INFO - Pearson Correlation: 0.9604
+2025-11-11 10:47:24,291 - MainThread - INFO - Completed training and evaluation for 200_2
+2025-11-11 10:47:24,292 - MainThread - INFO - Test Metrics - RMSE: 64.0411, R²: 0.9222
+2025-11-11 10:47:24,294 - MainThread - INFO - Completed experiment 200_2
+------------------------------------------------------------
+2025-11-11 10:47:24,294 - MainThread - INFO - 
+=== Training Complete ===
+2025-11-11 10:47:24,294 - MainThread - INFO - Trained 1 models successfully!
+2025-11-11 10:47:24,294 - MainThread - INFO - All models saved in 'trained_models_PINNS/' directory
+2025-11-11 10:47:24,295 - MainThread - INFO - Evaluation metrics saved in 'evaluation_results_PINNS/' directory
+2025-11-11 10:47:24,295 - MainThread - INFO - Training plots saved in 'training_plots_PINNS/' directory
+2025-11-11 10:47:24,295 - MainThread - INFO - === Summary of Test Results Across All Experiments ===
+2025-11-11 10:47:24,296 - MainThread - INFO - Average RMSE: 64.0411 ± nan
+2025-11-11 10:47:24,296 - MainThread - INFO - Average MAE: 26.2366 ± nan
+2025-11-11 10:47:24,296 - MainThread - INFO - Average R²: 0.9222 ± nan
+2025-11-11 10:47:24,297 - MainThread - INFO - Average Pearson Correlation: 0.9604 ± nan
+2025-11-11 10:47:24,297 - MainThread - INFO - 
+Best performing experiment (highest R²): 200_2 (R² = 0.9222)
+2025-11-11 10:47:24,297 - MainThread - INFO - Worst performing experiment (lowest R²): 200_2 (R² = 0.9222)
+2025-11-11 10:47:24,299 - MainThread - INFO - 
+Summary results saved to 'evaluation_results_PINNS/all_experiments_test_summary.csv'
+2025-11-11 10:47:25,361 - MainThread - INFO - Metrics distribution plots saved to 'evaluation_results_PINNS/metrics_distribution_summary.png'

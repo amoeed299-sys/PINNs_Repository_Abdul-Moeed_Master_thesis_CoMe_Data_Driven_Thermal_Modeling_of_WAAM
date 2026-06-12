@@ -1,0 +1,54 @@
+2025-11-12 01:16:55,161 - MainThread - INFO - Enabled memory growth on 1 GPU(s)
+2025-11-12 01:16:55,161 - MainThread - INFO - === Experiment 1/1: 200_2 ===
+2025-11-12 01:16:56,675 - MainThread - INFO - Splits - Train: 2808323, Val: 702081, Test: 6288964
+2025-11-12 01:19:15,002 - MainThread - INFO - [200_2] Epoch 1/200 - AvgLoss=2.516532e-01 weights={'w_data': 1.0, 'w_pde': 0.0, 'w_bc': 0.0, 'w_ic': 0.0}
+2025-11-12 01:30:30,243 - MainThread - INFO - [200_2] Epoch 6/200 - AvgLoss=1.576827e-02 weights={'w_data': 1.0, 'w_pde': 0.0, 'w_bc': 0.0, 'w_ic': 0.0}
+2025-11-12 01:41:48,391 - MainThread - INFO - [200_2] Epoch 11/200 - AvgLoss=8.789327e-03 weights={'w_data': 1.0, 'w_pde': 0.0, 'w_bc': 0.0, 'w_ic': 0.0}
+2025-11-12 01:53:06,837 - MainThread - INFO - [200_2] Epoch 16/200 - AvgLoss=2.282428e-01 weights={'w_data': 1.0, 'w_pde': 0.0, 'w_bc': 0.0, 'w_ic': 2.5e-06}
+2025-11-12 02:04:19,320 - MainThread - INFO - [200_2] Epoch 21/200 - AvgLoss=4.508642e-01 weights={'w_data': 1.0, 'w_pde': 0.0, 'w_bc': 0.0, 'w_ic': 5e-06}
+2025-11-12 02:15:33,919 - MainThread - INFO - [200_2] Epoch 26/200 - AvgLoss=9.321667e+01 weights={'w_data': 1.0, 'w_pde': 0.0, 'w_bc': 2.5e-06, 'w_ic': 7.500000000000001e-06}
+2025-11-12 02:26:54,583 - MainThread - INFO - [200_2] Epoch 31/200 - AvgLoss=1.877901e+02 weights={'w_data': 1.0, 'w_pde': 0.0, 'w_bc': 5e-06, 'w_ic': 1e-05}
+2025-11-12 02:38:20,507 - MainThread - INFO - [200_2] Epoch 36/200 - AvgLoss=2.813775e+02 weights={'w_data': 1.0, 'w_pde': 0.0, 'w_bc': 7.500000000000001e-06, 'w_ic': 1e-05}
+2025-11-12 02:49:29,982 - MainThread - INFO - [200_2] Epoch 41/200 - AvgLoss=3.742324e+02 weights={'w_data': 1.0, 'w_pde': 0.0, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 03:00:49,553 - MainThread - INFO - [200_2] Epoch 46/200 - AvgLoss=1.607803e+14 weights={'w_data': 1.0, 'w_pde': 1.25e-05, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 03:12:08,466 - MainThread - INFO - [200_2] Epoch 51/200 - AvgLoss=3.215797e+14 weights={'w_data': 1.0, 'w_pde': 2.5e-05, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 03:23:23,178 - MainThread - INFO - [200_2] Epoch 56/200 - AvgLoss=4.823410e+14 weights={'w_data': 1.0, 'w_pde': 3.7500000000000003e-05, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 03:34:32,908 - MainThread - INFO - [200_2] Epoch 61/200 - AvgLoss=6.430638e+14 weights={'w_data': 1.0, 'w_pde': 5e-05, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 03:45:49,845 - MainThread - INFO - [200_2] Epoch 66/200 - AvgLoss=8.038894e+14 weights={'w_data': 1.0, 'w_pde': 6.25e-05, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 03:57:05,546 - MainThread - INFO - [200_2] Epoch 71/200 - AvgLoss=9.645958e+14 weights={'w_data': 1.0, 'w_pde': 7.500000000000001e-05, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 04:08:23,664 - MainThread - INFO - [200_2] Epoch 76/200 - AvgLoss=1.125512e+15 weights={'w_data': 1.0, 'w_pde': 8.75e-05, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 04:19:38,046 - MainThread - INFO - [200_2] Epoch 81/200 - AvgLoss=1.286205e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 04:30:49,757 - MainThread - INFO - [200_2] Epoch 86/200 - AvgLoss=1.286128e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 04:41:54,534 - MainThread - INFO - [200_2] Epoch 91/200 - AvgLoss=1.286166e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 04:53:09,483 - MainThread - INFO - [200_2] Epoch 96/200 - AvgLoss=1.286262e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 05:04:23,902 - MainThread - INFO - [200_2] Epoch 101/200 - AvgLoss=1.286300e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 05:15:30,668 - MainThread - INFO - [200_2] Epoch 106/200 - AvgLoss=1.286128e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 05:26:41,238 - MainThread - INFO - [200_2] Epoch 111/200 - AvgLoss=1.286013e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 05:37:52,376 - MainThread - INFO - [200_2] Epoch 116/200 - AvgLoss=1.286128e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 05:49:03,619 - MainThread - INFO - [200_2] Epoch 121/200 - AvgLoss=1.286357e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 06:00:11,888 - MainThread - INFO - [200_2] Epoch 126/200 - AvgLoss=1.286147e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 06:11:17,737 - MainThread - INFO - [200_2] Epoch 131/200 - AvgLoss=1.286299e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 06:22:33,393 - MainThread - INFO - [200_2] Epoch 136/200 - AvgLoss=1.286281e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 06:33:49,960 - MainThread - INFO - [200_2] Epoch 141/200 - AvgLoss=1.286223e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 06:45:13,467 - MainThread - INFO - [200_2] Epoch 146/200 - AvgLoss=1.286185e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 06:56:38,636 - MainThread - INFO - [200_2] Epoch 151/200 - AvgLoss=1.286281e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 07:07:54,002 - MainThread - INFO - [200_2] Epoch 156/200 - AvgLoss=1.286204e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 07:19:04,636 - MainThread - INFO - [200_2] Epoch 161/200 - AvgLoss=1.286127e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 07:30:18,436 - MainThread - INFO - [200_2] Epoch 166/200 - AvgLoss=1.286185e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 07:41:28,849 - MainThread - INFO - [200_2] Epoch 171/200 - AvgLoss=1.286147e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 07:52:39,262 - MainThread - INFO - [200_2] Epoch 176/200 - AvgLoss=1.286108e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 08:03:55,526 - MainThread - INFO - [200_2] Epoch 181/200 - AvgLoss=1.286109e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 08:15:14,340 - MainThread - INFO - [200_2] Epoch 186/200 - AvgLoss=1.285975e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 08:26:26,210 - MainThread - INFO - [200_2] Epoch 191/200 - AvgLoss=1.286300e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 08:37:46,018 - MainThread - INFO - [200_2] Epoch 196/200 - AvgLoss=1.286242e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 08:46:48,762 - MainThread - INFO - [200_2] Epoch 200/200 - AvgLoss=1.286338e+15 weights={'w_data': 1.0, 'w_pde': 0.0001, 'w_bc': 1e-05, 'w_ic': 1e-05}
+2025-11-12 08:46:48,762 - MainThread - WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+2025-11-12 08:46:48,776 - MainThread - INFO - Saved model to trained_models_PINNS/model_200_2.h5
+2025-11-12 08:46:59,543 - MainThread - ERROR - Error in experiment 200_2: Exception encountered when calling Dense.call().
+
+[1m{{function_node __wrapped__BiasAdd_device_/job:localhost/replica:0/task:0/device:GPU:0}} OOM when allocating tensor with shape[6288964,128] and type float on /job:localhost/replica:0/task:0/device:GPU:0 by allocator GPU_0_bfc [Op:BiasAdd][0m
+
+Arguments received by Dense.call():
+  • inputs=tf.Tensor(shape=(6288964, 128), dtype=float32)
+  • training=False
+2025-11-12 08:46:59,544 - MainThread - INFO - Training script finished.

@@ -1,0 +1,26 @@
+2025-11-12 20:19:49,765 - MainThread - INFO - ✓ GPU memory growth enabled for 1 device(s)
+2025-11-12 20:19:49,765 - MainThread - INFO - 
+=== Experiment 1/1: 200_2 ===
+2025-11-12 20:19:49,949 - MainThread - INFO - Loaded data shape: X=(9799368, 4), y=(9799368, 1)
+2025-11-12 20:19:50,499 - MainThread - INFO - Final splits - Train: 2808323, Val: 702081, Test: 6288964
+2025-11-12 20:19:51,267 - MainThread - INFO - Model parameters: {'input_dim': 4, 'output_dim': 1, 'layer_sizes': [256, 256, 128, 128, 64, 64, 1], 'activation': 'relu', 'learning_rate': 0.001, 'w_data': 1.0, 'w_pde': 0, 'w_bc': 1e-05, 'w_ic': 0.01}
+2025-11-12 20:19:51,267 - MainThread - INFO - Training parameters: {'epochs': 500, 'batch_size': 262144, 'learning_rate': 0.0001, 'L_data_threshold': 0.5, 'w_data_new': 0.01, 'w_pde_new': 1e-14, 'early_stopping_patience': 50, 'lr_reduce_patience': 25}
+2025-11-12 20:19:51,267 - MainThread - INFO - Starting training for experiment: 200_2
+2025-11-12 20:19:51,267 - MainThread - INFO - Configuration - Epochs: 500, Data Batch Size: 262144, Physics Batch Size: 262144
+2025-11-12 20:19:51,720 - MainThread - INFO - Physics parameters loaded - V: 10.1V, I: 70A, Efficiency: 0.7
+2025-11-12 20:19:51,889 - MainThread - INFO - Dataset sizes - Train: 2808323, Validation: 702081, Test: 6288964
+2025-11-12 20:19:52,512 - MainThread - WARNING - Calling GradientTape.gradient on a persistent tape inside its context is significantly less efficient than calling it outside the context (it causes the gradient ops to be recorded on the tape, leading to increased CPU and memory usage). Only call GradientTape.gradient inside the context if you actually want to trace the gradient in order to compute higher order derivatives.
+2025-11-12 20:19:55,649 - MainThread - INFO - [200_2] Epoch 1/500 | Avg Loss: 9.3454e+00 (Data=9.757e-01, PDE=2.365e+14, BC=2.112e+05, IC=6.213e+02)
+2025-11-12 20:20:18,993 - MainThread - INFO - [200_2] Epoch 10/500 | Avg Loss: 8.8678e+00 (Data=8.335e-01, PDE=2.746e+14, BC=1.945e+05, IC=6.084e+02)
+2025-11-12 20:20:44,816 - MainThread - INFO - [200_2] Epoch 20/500 | Avg Loss: 8.8433e+00 (Data=8.297e-01, PDE=2.893e+14, BC=1.929e+05, IC=6.084e+02)
+2025-11-12 20:21:10,704 - MainThread - INFO - [200_2] Epoch 30/500 | Avg Loss: 8.8216e+00 (Data=8.123e-01, PDE=2.844e+14, BC=1.919e+05, IC=6.087e+02)
+2025-11-12 20:21:36,517 - MainThread - INFO - [200_2] Epoch 40/500 | Avg Loss: 8.8131e+00 (Data=7.954e-01, PDE=2.779e+14, BC=1.922e+05, IC=6.093e+02)
+2025-11-12 20:22:02,449 - MainThread - INFO - [200_2] Epoch 50/500 | Avg Loss: 8.8068e+00 (Data=7.943e-01, PDE=2.772e+14, BC=1.922e+05, IC=6.088e+02)
+2025-11-12 20:22:28,306 - MainThread - INFO - [200_2] Epoch 60/500 | Avg Loss: 8.7971e+00 (Data=7.942e-01, PDE=2.801e+14, BC=1.914e+05, IC=6.088e+02)
+2025-11-12 20:22:54,228 - MainThread - INFO - [200_2] Epoch 70/500 | Avg Loss: 8.7917e+00 (Data=7.825e-01, PDE=2.681e+14, BC=1.918e+05, IC=6.087e+02)
+2025-11-12 20:23:20,141 - MainThread - INFO - [200_2] Epoch 80/500 | Avg Loss: 8.7123e+00 (Data=7.060e-01, PDE=5.731e+14, BC=1.898e+05, IC=6.095e+02)
+2025-11-12 20:23:46,061 - MainThread - INFO - [200_2] Epoch 90/500 | Avg Loss: 1.0918e+01 (Data=5.758e-01, PDE=2.473e+15, BC=1.858e+05, IC=6.053e+02)
+2025-11-12 20:24:12,041 - MainThread - INFO - [200_2] Epoch 100/500 | Avg Loss: 8.5004e+00 (Data=5.317e-01, PDE=1.549e+15, BC=1.875e+05, IC=6.087e+02)
+2025-11-12 20:24:38,117 - MainThread - INFO - [200_2] Epoch 110/500 | Avg Loss: 8.4645e+00 (Data=5.097e-01, PDE=1.896e+15, BC=1.870e+05, IC=6.083e+02)
+2025-11-12 20:25:04,081 - MainThread - INFO - [200_2] Epoch 120/500 | Avg Loss: 8.4799e+00 (Data=5.279e-01, PDE=1.399e+15, BC=1.874e+05, IC=6.082e+02)
+2025-11-12 20:25:30,005 - MainThread - INFO - [200_2] Epoch 130/500 | Avg Loss: 8.4937e+00 (Data=5.265e-01, PDE=1.018e+15, BC=1.880e+05, IC=6.088e+02)

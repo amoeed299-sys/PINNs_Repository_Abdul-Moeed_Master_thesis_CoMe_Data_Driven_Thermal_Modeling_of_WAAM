@@ -1,0 +1,19 @@
+2025-12-04 22:45:58,120 - MainThread - INFO - GPU memory growth setting failed: Physical devices cannot be modified after being initialized
+2025-12-04 22:45:58,120 - MainThread - INFO - 
+=== Experiment 1/1: 200_2 ===
+2025-12-04 22:45:58,363 - MainThread - INFO - Loaded data shape: X=(9799368, 4), y=(9799368, 1)
+2025-12-04 22:45:58,417 - MainThread - INFO - [200_2] Data-derived initial temperature T_initial = 298.150 K
+2025-12-04 22:46:00,959 - MainThread - INFO - Input scaler for 200_2 - mins: [0.         0.0149951  0.16491048 0.004     ], scales: [1.0038600e+03 2.0000981e-01 5.1790476e-03 3.2060756e-03]
+2025-12-04 22:46:00,960 - MainThread - INFO - Physics parameters loaded - V: 10.1V, I: 70A, Efficiency: 0.7
+2025-12-04 22:46:02,594 - MainThread - INFO - [200_2] Starting Stage 1 (data-only) training for 100 epochs...
+2025-12-04 22:57:46,722 - MainThread - INFO - [200_2] Stage 1 (data-only) training complete.
+2025-12-04 22:57:46,724 - MainThread - INFO - Model parameters: {'input_dim': 4, 'output_dim': 1, 'layer_sizes': [128, 128, 64, 64, 32, 16, 1], 'activation': 'relu', 'w_data': 0.001, 'w_pde': 1e-10, 'w_bc': 1e-08, 'w_ic': 0.0001}
+2025-12-04 22:57:46,724 - MainThread - INFO - Training parameters (PINN stage): {'epochs_data_only': 100, 'epochs_pinn': 250, 'batch_size': 8192, 'learning_rate': 5e-05, 'early_stopping_patience': 40, 'lr_reduce_patience': 20, 'lr_reduce_factor': 0.5, 'min_lr': 1e-06, 'pde_warmup_epochs': 20, 'max_grad_norm': 1.0, 'bc_batch_size': 2048, 'ic_batch_size': 2048, 'max_batches_per_epoch': 60, 'physics_batch_size': 2048}
+2025-12-04 22:57:46,724 - MainThread - INFO - Starting PINN training for experiment: 200_2
+2025-12-04 22:57:46,724 - MainThread - INFO - Configuration - Epochs: 250, Data Batch Size: 8192, Physics Batch Size: 2048
+2025-12-04 22:57:46,726 - MainThread - INFO - Dataset sizes - Train: 7055544, Validation: 1763887, Test: 979937
+2025-12-04 22:57:46,727 - MainThread - INFO - PDE domain size (X_all): 9799368 points
+2025-12-04 22:58:15,293 - MainThread - INFO - [200_2] Epoch 1/250 | Avg Total Loss: 1.6545e+02 | Val Data Loss: 9.7859e+01 | (Data=7.075e+01, PDE=1.946e+17, BC=1.774e+12, IC=6.018e+01) | w_data=1.0e+00, w_pde=0.0e+00, w_bc=0.0e+00, w_ic=0.0e+00
+2025-12-04 23:01:58,184 - MainThread - INFO - [200_2] Epoch 10/250 | Avg Total Loss: 1.7180e+02 | Val Data Loss: 1.0802e+02 | (Data=1.262e+02, PDE=1.881e+17, BC=1.714e+12, IC=8.125e+01) | w_data=1.0e+00, w_pde=0.0e+00, w_bc=0.0e+00, w_ic=0.0e+00
+2025-12-04 23:06:04,513 - MainThread - INFO - [200_2] Epoch 20/250 | Avg Total Loss: 1.0545e+02 | Val Data Loss: 9.2252e+01 | (Data=8.834e+01, PDE=2.225e+17, BC=2.096e+12, IC=8.823e+01) | w_data=1.0e+00, w_pde=0.0e+00, w_bc=0.0e+00, w_ic=0.0e+00
+2025-12-04 23:06:04,513 - MainThread - INFO - [200_2] Reducing learning rate from 5.00e-05 to 2.50e-05 after 20 epochs without sufficient improvement.

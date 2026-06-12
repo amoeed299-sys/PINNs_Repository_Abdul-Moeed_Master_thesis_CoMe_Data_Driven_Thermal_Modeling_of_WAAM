@@ -1,0 +1,87 @@
+2025-11-11 12:02:20,298 - MainThread - INFO - ✓ GPU memory growth enabled for 1 device(s)
+2025-11-11 12:02:20,298 - MainThread - INFO - 
+=== Experiment 1/1: 200_2 ===
+2025-11-11 12:02:20,509 - MainThread - INFO - Loaded data shape: X=(9799368, 4), y=(9799368, 1)
+2025-11-11 12:02:21,350 - MainThread - INFO - Final splits - Train: 2808323, Val: 702081, Test: 6288964
+2025-11-11 12:02:22,414 - MainThread - INFO - Model parameters: {'input_dim': 4, 'output_dim': 1, 'layer_sizes': [256, 256, 128, 128, 64, 64, 1], 'activation': 'relu', 'learning_rate': 0.001, 'w_data': 1.0, 'w_pde': 0, 'w_bc': 0, 'w_ic': 0}
+2025-11-11 12:02:22,414 - MainThread - INFO - Training parameters: {'epochs': 200, 'batch_size': 262144, 'learning_rate': 0.0001, 'L_data_threshold': 0.5, 'L_ic_threshold': 10, 'L_bc_threshold': 1000.0, 'w_data_new': 0.01, 'w_pde_new': 1e-14, 'w_bc_new': 1e-05, 'w_ic_new': 0.01, 'early_stopping_patience': 50, 'lr_reduce_patience': 25}
+2025-11-11 12:02:22,414 - MainThread - INFO - Starting training for experiment: 200_2
+2025-11-11 12:02:22,414 - MainThread - INFO - Configuration - Epochs: 200, Data Batch Size: 262144, Physics Batch Size: 262144
+2025-11-11 12:02:23,008 - MainThread - INFO - Physics parameters loaded - V: 10.1V, I: 70A, Efficiency: 0.7
+2025-11-11 12:02:23,198 - MainThread - INFO - Dataset sizes - Train: 2808323, Validation: 702081, Test: 6288964
+2025-11-11 12:02:24,003 - MainThread - WARNING - Calling GradientTape.gradient on a persistent tape inside its context is significantly less efficient than calling it outside the context (it causes the gradient ops to be recorded on the tape, leading to increased CPU and memory usage). Only call GradientTape.gradient inside the context if you actually want to trace the gradient in order to compute higher order derivatives.
+2025-11-11 12:02:27,536 - MainThread - INFO - [200_2] Epoch 1/200 | Avg Loss: 9.6263e-01 (Data=9.340e-01, PDE=2.388e+14, BC=3.738e+07, IC=8.891e+04)
+2025-11-11 12:02:50,649 - MainThread - INFO - [200_2] Epoch 10/200 | Avg Loss: 6.7560e-01 (Data=6.728e-01, PDE=3.061e+14, BC=3.728e+07, IC=8.889e+04)
+2025-11-11 12:03:16,303 - MainThread - INFO - [200_2] Epoch 20/200 | Avg Loss: 4.9837e-01 (Data=4.747e-01, PDE=5.759e+14, BC=3.727e+07, IC=8.889e+04)
+2025-11-11 12:03:41,906 - MainThread - INFO - [200_2] Epoch 30/200 | Avg Loss: 6.7741e-01 (Data=6.770e-01, PDE=2.463e+14, BC=3.731e+07, IC=8.889e+04)
+2025-11-11 12:04:07,551 - MainThread - INFO - [200_2] Epoch 40/200 | Avg Loss: 6.0618e-01 (Data=5.984e-01, PDE=2.868e+14, BC=3.729e+07, IC=8.889e+04)
+2025-11-11 12:04:33,214 - MainThread - INFO - [200_2] Epoch 50/200 | Avg Loss: 6.8822e-01 (Data=6.777e-01, PDE=2.791e+14, BC=3.724e+07, IC=8.886e+04)
+2025-11-11 12:04:58,879 - MainThread - INFO - [200_2] Epoch 60/200 | Avg Loss: 5.1893e-01 (Data=5.064e-01, PDE=4.966e+14, BC=3.729e+07, IC=8.894e+04)
+2025-11-11 12:04:58,999 - MainThread - INFO - Adjusting weights at epoch 60: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 12:05:24,516 - MainThread - INFO - [200_2] Epoch 70/200 | Avg Loss: 5.8436e-01 (Data=5.806e-01, PDE=3.354e+14, BC=3.727e+07, IC=8.888e+04)
+2025-11-11 12:05:50,206 - MainThread - INFO - [200_2] Epoch 80/200 | Avg Loss: 8.3297e-01 (Data=7.832e-01, PDE=3.754e+14, BC=3.725e+07, IC=8.867e+04)
+2025-11-11 12:06:16,081 - MainThread - INFO - [200_2] Epoch 90/200 | Avg Loss: 8.1263e+01 (Data=4.820e-01, PDE=3.896e+14, BC=3.726e+07, IC=8.883e+04)
+2025-11-11 12:06:16,204 - MainThread - INFO - Adjusting weights at epoch 90: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 12:06:16,435 - MainThread - INFO - Adjusting weights at epoch 90: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 12:06:41,999 - MainThread - INFO - [200_2] Epoch 100/200 | Avg Loss: 6.6384e-01 (Data=5.836e-01, PDE=2.729e+14, BC=3.722e+07, IC=8.874e+04)
+2025-11-11 12:07:07,681 - MainThread - INFO - [200_2] Epoch 110/200 | Avg Loss: 3.2334e+02 (Data=6.494e-01, PDE=2.833e+14, BC=3.720e+07, IC=8.867e+04)
+2025-11-11 12:07:33,381 - MainThread - INFO - [200_2] Epoch 120/200 | Avg Loss: 2.4249e+02 (Data=6.101e-01, PDE=4.139e+14, BC=3.721e+07, IC=8.870e+04)
+2025-11-11 12:07:59,060 - MainThread - INFO - [200_2] Epoch 130/200 | Avg Loss: 5.6517e-01 (Data=5.125e-01, PDE=3.503e+14, BC=3.721e+07, IC=8.874e+04)
+2025-11-11 12:07:59,880 - MainThread - INFO - Adjusting weights at epoch 130: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 12:08:00,111 - MainThread - INFO - Adjusting weights at epoch 130: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 12:08:00,342 - MainThread - INFO - Adjusting weights at epoch 130: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 12:08:24,787 - MainThread - INFO - [200_2] Epoch 140/200 | Avg Loss: 6.8966e-01 (Data=6.683e-01, PDE=3.131e+14, BC=3.715e+07, IC=8.861e+04)
+2025-11-11 12:08:50,483 - MainThread - INFO - [200_2] Epoch 150/200 | Avg Loss: 2.4241e+02 (Data=5.259e-01, PDE=3.390e+14, BC=3.720e+07, IC=8.871e+04)
+2025-11-11 12:08:50,604 - MainThread - INFO - Adjusting weights at epoch 150: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 12:09:16,185 - MainThread - INFO - [200_2] Epoch 160/200 | Avg Loss: 6.9015e-01 (Data=6.177e-01, PDE=3.427e+14, BC=3.715e+07, IC=8.863e+04)
+2025-11-11 12:09:41,859 - MainThread - INFO - [200_2] Epoch 170/200 | Avg Loss: 3.2297e+02 (Data=5.446e-01, PDE=3.555e+14, BC=3.718e+07, IC=8.868e+04)
+2025-11-11 12:10:07,528 - MainThread - INFO - [200_2] Epoch 180/200 | Avg Loss: 6.0974e-01 (Data=5.422e-01, PDE=4.257e+14, BC=3.718e+07, IC=8.868e+04)
+2025-11-11 12:10:08,807 - MainThread - INFO - Adjusting weights at epoch 180: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 12:10:09,038 - MainThread - INFO - Adjusting weights at epoch 180: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 12:10:09,270 - MainThread - INFO - Adjusting weights at epoch 180: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 12:10:09,500 - MainThread - INFO - Adjusting weights at epoch 180: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 12:10:33,186 - MainThread - INFO - [200_2] Epoch 190/200 | Avg Loss: 7.5202e-01 (Data=7.487e-01, PDE=4.093e+14, BC=3.711e+07, IC=8.854e+04)
+2025-11-11 12:10:58,870 - MainThread - INFO - [200_2] Epoch 200/200 | Avg Loss: 5.5195e-01 (Data=4.875e-01, PDE=4.875e+14, BC=3.720e+07, IC=8.872e+04)
+2025-11-11 12:10:58,871 - MainThread - WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+2025-11-11 12:10:58,886 - MainThread - INFO - Model saved: model_200_2.h5
+2025-11-11 12:10:59,124 - MainThread - INFO - Training plot saved for 200_2
+2025-11-11 12:10:59,124 - MainThread - INFO - Starting evaluation for 200_2
+2025-11-11 12:16:19,448 - MainThread - INFO - 
+=== Training Evaluation Metrics for experiment 200_2 ===
+2025-11-11 12:16:19,448 - MainThread - INFO - RMSE: 162.7126
+2025-11-11 12:16:19,448 - MainThread - INFO - MAE: 124.7698
+2025-11-11 12:16:19,449 - MainThread - INFO - R²: 0.5112
+2025-11-11 12:16:19,449 - MainThread - INFO - Pearson Correlation: 0.8039
+2025-11-11 12:18:09,255 - MainThread - INFO - 
+=== Validation Evaluation Metrics for experiment 200_2 ===
+2025-11-11 12:18:09,256 - MainThread - INFO - RMSE: 162.9381
+2025-11-11 12:18:09,256 - MainThread - INFO - MAE: 124.9496
+2025-11-11 12:18:09,256 - MainThread - INFO - R²: 0.5109
+2025-11-11 12:18:09,256 - MainThread - INFO - Pearson Correlation: 0.8035
+2025-11-11 12:30:13,005 - MainThread - INFO - 
+=== Test Evaluation Metrics for experiment 200_2 ===
+2025-11-11 12:30:13,006 - MainThread - INFO - RMSE: 151.1304
+2025-11-11 12:30:13,006 - MainThread - INFO - MAE: 115.3090
+2025-11-11 12:30:13,006 - MainThread - INFO - R²: 0.5669
+2025-11-11 12:30:13,006 - MainThread - INFO - Pearson Correlation: 0.8326
+2025-11-11 12:31:23,459 - MainThread - INFO - Completed training and evaluation for 200_2
+2025-11-11 12:31:23,460 - MainThread - INFO - Test Metrics - RMSE: 151.1304, R²: 0.5669
+2025-11-11 12:31:23,461 - MainThread - INFO - Completed experiment 200_2
+------------------------------------------------------------
+2025-11-11 12:31:23,461 - MainThread - INFO - 
+=== Training Complete ===
+2025-11-11 12:31:23,461 - MainThread - INFO - Trained 1 models successfully!
+2025-11-11 12:31:23,462 - MainThread - INFO - All models saved in 'trained_models_PINNS/' directory
+2025-11-11 12:31:23,462 - MainThread - INFO - Evaluation metrics saved in 'evaluation_results_PINNS/' directory
+2025-11-11 12:31:23,462 - MainThread - INFO - Training plots saved in 'training_plots_PINNS/' directory
+2025-11-11 12:31:23,462 - MainThread - INFO - === Summary of Test Results Across All Experiments ===
+2025-11-11 12:31:23,462 - MainThread - INFO - Average RMSE: 151.1304 ± nan
+2025-11-11 12:31:23,463 - MainThread - INFO - Average MAE: 115.3090 ± nan
+2025-11-11 12:31:23,463 - MainThread - INFO - Average R²: 0.5669 ± nan
+2025-11-11 12:31:23,463 - MainThread - INFO - Average Pearson Correlation: 0.8326 ± nan
+2025-11-11 12:31:23,463 - MainThread - INFO - 
+Best performing experiment (highest R²): 200_2 (R² = 0.5669)
+2025-11-11 12:31:23,463 - MainThread - INFO - Worst performing experiment (lowest R²): 200_2 (R² = 0.5669)
+2025-11-11 12:31:23,464 - MainThread - INFO - 
+Summary results saved to 'evaluation_results_PINNS/all_experiments_test_summary.csv'
+2025-11-11 12:31:24,267 - MainThread - INFO - Metrics distribution plots saved to 'evaluation_results_PINNS/metrics_distribution_summary.png'

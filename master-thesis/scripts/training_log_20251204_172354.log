@@ -1,0 +1,67 @@
+2025-12-04 17:23:55,291 - MainThread - INFO - GPU memory growth setting failed: Physical devices cannot be modified after being initialized
+2025-12-04 17:23:55,292 - MainThread - INFO - 
+=== Experiment 1/1: 200_2 ===
+2025-12-04 17:23:55,507 - MainThread - INFO - Loaded data shape: X=(9799368, 4), y=(9799368, 1)
+2025-12-04 17:23:55,623 - MainThread - INFO - [200_2] Data-derived mean initial temperature T_initial ≈ 298.150 K
+2025-12-04 17:23:58,163 - MainThread - INFO - Input scaler for 200_2 - mins: [0.         0.0149951  0.16491048 0.004     ], scales: [1.0038600e+03 2.0000981e-01 5.1790476e-03 3.2060756e-03]
+2025-12-04 17:23:58,163 - MainThread - INFO - Physics parameters loaded - V: 10.1V, I: 70A, Efficiency: 0.7
+2025-12-04 17:23:59,790 - MainThread - INFO - [200_2] Starting Stage 1 (data-only) training for 100 epochs...
+2025-12-04 17:35:41,040 - MainThread - INFO - [200_2] Stage 1 (data-only) training complete.
+2025-12-04 17:35:41,041 - MainThread - INFO - Model parameters: {'input_dim': 4, 'output_dim': 1, 'layer_sizes': [128, 128, 64, 64, 32, 16, 1], 'activation': 'relu', 'w_data': 0.001, 'w_pde': 1e-10, 'w_bc': 1e-08, 'w_ic': 0.0001}
+2025-12-04 17:35:41,041 - MainThread - INFO - Training parameters (PINN stage): {'epochs_data_only': 100, 'epochs_pinn': 250, 'batch_size': 8192, 'learning_rate': 5e-05, 'early_stopping_patience': 40, 'lr_reduce_patience': 20, 'lr_reduce_factor': 0.5, 'min_lr': 1e-06, 'pde_warmup_epochs': 20, 'max_grad_norm': 1.0, 'bc_batch_size': 2048, 'ic_batch_size': 2048, 'max_batches_per_epoch': 60, 'physics_batch_size': 2048}
+2025-12-04 17:35:41,041 - MainThread - INFO - Starting PINN training for experiment: 200_2
+2025-12-04 17:35:41,041 - MainThread - INFO - Configuration - Epochs: 250, Data Batch Size: 8192, Physics Batch Size: 2048
+2025-12-04 17:35:41,044 - MainThread - INFO - Dataset sizes - Train: 7055544, Validation: 1763887, Test: 979937
+2025-12-04 17:35:41,044 - MainThread - INFO - PDE domain size (X_all): 9799368 points
+2025-12-04 17:36:10,000 - MainThread - INFO - [200_2] Epoch 1/250 | Avg Total Loss: 1.3322e+02 | Val Data Loss: 4.0647e+01 | (Data=4.173e+01, PDE=1.739e+17, BC=1.529e+12, IC=1.701e+01) | w_data=1.0e+00, w_pde=0.0e+00, w_bc=0.0e+00, w_ic=0.0e+00
+2025-12-04 17:39:52,610 - MainThread - INFO - [200_2] Epoch 10/250 | Avg Total Loss: 4.9755e+01 | Val Data Loss: 4.2515e+01 | (Data=7.699e+01, PDE=3.107e+17, BC=1.994e+12, IC=1.288e+01) | w_data=1.0e+00, w_pde=0.0e+00, w_bc=0.0e+00, w_ic=0.0e+00
+2025-12-04 17:43:57,001 - MainThread - INFO - [200_2] Epoch 20/250 | Avg Total Loss: 4.6524e+01 | Val Data Loss: 3.5937e+01 | (Data=3.762e+01, PDE=2.366e+17, BC=2.015e+12, IC=1.351e+01) | w_data=1.0e+00, w_pde=0.0e+00, w_bc=0.0e+00, w_ic=0.0e+00
+2025-12-04 17:43:57,001 - MainThread - INFO - [200_2] Reducing learning rate from 5.00e-05 to 2.50e-05 after 20 epochs without sufficient improvement.
+2025-12-04 17:48:00,586 - MainThread - INFO - [200_2] Epoch 30/250 | Avg Total Loss: 1.2338e+04 | Val Data Loss: 1.0146e+03 | (Data=9.125e+02, PDE=1.523e+17, BC=4.650e+11, IC=2.127e+02) | w_data=1.0e+00, w_pde=1.8e-14, w_bc=1.8e-09, w_ic=1.1e-02
+2025-12-04 17:52:07,763 - MainThread - INFO - [200_2] Epoch 40/250 | Avg Total Loss: 2.5076e+04 | Val Data Loss: 2.6923e+03 | (Data=3.544e+03, PDE=2.178e+17, BC=1.002e+12, IC=3.212e+02) | w_data=1.0e+00, w_pde=6.0e-14, w_bc=6.0e-09, w_ic=1.2e-02
+2025-12-04 17:52:07,764 - MainThread - INFO - [200_2] Reducing learning rate from 2.50e-05 to 1.25e-05 after 20 epochs without sufficient improvement.
+2025-12-04 17:56:14,496 - MainThread - INFO - [200_2] Epoch 50/250 | Avg Total Loss: 3.6117e+04 | Val Data Loss: 3.5044e+03 | (Data=4.284e+03, PDE=1.232e+17, BC=5.830e+11, IC=4.474e+02) | w_data=1.0e+00, w_pde=1.5e-13, w_bc=1.5e-08, w_ic=1.3e-02
+2025-12-04 17:58:42,168 - MainThread - INFO - [200_2] Early stopping in PINN stage at epoch 56. Best validation data loss: 3.2013e+01
+2025-12-04 17:58:42,171 - MainThread - WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+2025-12-04 17:58:42,197 - MainThread - INFO - Model saved: model_200_2.h5
+2025-12-04 17:58:42,197 - MainThread - INFO - Input scaler saved: input_scaler_200_2.npz
+2025-12-04 17:58:42,939 - MainThread - INFO - PINN training plot saved for 200_2
+2025-12-04 17:58:42,939 - MainThread - INFO - Starting final evaluation for 200_2
+2025-12-04 18:12:15,759 - MainThread - INFO - 
+=== Training Evaluation Metrics for experiment 200_2 ===
+2025-12-04 18:12:15,759 - MainThread - INFO - RMSE: 5.6425
+2025-12-04 18:12:15,759 - MainThread - INFO - MAE: 2.2443
+2025-12-04 18:12:15,759 - MainThread - INFO - R²: 0.9994
+2025-12-04 18:12:15,759 - MainThread - INFO - Pearson Correlation: 0.9997
+2025-12-04 18:16:56,234 - MainThread - INFO - 
+=== Validation Evaluation Metrics for experiment 200_2 ===
+2025-12-04 18:16:56,234 - MainThread - INFO - RMSE: 5.6580
+2025-12-04 18:16:56,234 - MainThread - INFO - MAE: 2.2424
+2025-12-04 18:16:56,234 - MainThread - INFO - R²: 0.9994
+2025-12-04 18:16:56,234 - MainThread - INFO - Pearson Correlation: 0.9997
+2025-12-04 18:19:09,441 - MainThread - INFO - 
+=== Test Evaluation Metrics for experiment 200_2 ===
+2025-12-04 18:19:09,442 - MainThread - INFO - RMSE: 5.5614
+2025-12-04 18:19:09,442 - MainThread - INFO - MAE: 2.2376
+2025-12-04 18:19:09,442 - MainThread - INFO - R²: 0.9994
+2025-12-04 18:19:09,442 - MainThread - INFO - Pearson Correlation: 0.9997
+2025-12-04 18:19:21,490 - MainThread - INFO - Completed training and evaluation for 200_2
+2025-12-04 18:19:21,491 - MainThread - INFO - Test Metrics - RMSE: 5.5614, R²: 0.9994
+2025-12-04 18:19:21,492 - MainThread - INFO - Completed experiment 200_2
+------------------------------------------------------------
+2025-12-04 18:19:21,492 - MainThread - INFO - 
+=== Training Complete ===
+2025-12-04 18:19:21,492 - MainThread - INFO - Trained 1 models successfully!
+2025-12-04 18:19:21,492 - MainThread - INFO - All models saved in 'trained_models_PINNS/' directory
+2025-12-04 18:19:21,492 - MainThread - INFO - Evaluation metrics saved in 'evaluation_results_PINNS/' directory
+2025-12-04 18:19:21,492 - MainThread - INFO - Training plots saved in 'training_plots_PINNS/' directory
+2025-12-04 18:19:21,493 - MainThread - INFO - === Summary of Test Results Across All Experiments ===
+2025-12-04 18:19:21,493 - MainThread - INFO - Average RMSE: 5.5614 ± nan
+2025-12-04 18:19:21,494 - MainThread - INFO - Average MAE: 2.2376 ± nan
+2025-12-04 18:19:21,494 - MainThread - INFO - Average R²: 0.9994 ± nan
+2025-12-04 18:19:21,494 - MainThread - INFO - Average Pearson Correlation: 0.9997 ± nan
+2025-12-04 18:19:21,494 - MainThread - INFO - 
+Best performing experiment (highest R²): 200_2 (R² = 0.9994)
+2025-12-04 18:19:21,494 - MainThread - INFO - Worst performing experiment (lowest R²): 200_2 (R² = 0.9994)
+2025-12-04 18:19:21,496 - MainThread - INFO - Summary results saved to 'evaluation_results_PINNS/all_experiments_test_summary.csv'
+2025-12-04 18:19:22,184 - MainThread - INFO - Metrics distribution plots saved to 'evaluation_results_PINNS/metrics_distribution_summary.png'

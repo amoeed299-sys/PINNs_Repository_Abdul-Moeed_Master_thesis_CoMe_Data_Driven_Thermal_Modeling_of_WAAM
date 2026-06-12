@@ -1,0 +1,35 @@
+2025-12-04 15:20:17,672 - MainThread - INFO - GPU memory growth setting failed: Physical devices cannot be modified after being initialized
+2025-12-04 15:20:17,672 - MainThread - INFO - 
+=== Experiment 1/1: 200_2 ===
+2025-12-04 15:20:17,903 - MainThread - INFO - Loaded data shape: X=(9799368, 4), y=(9799368, 1)
+2025-12-04 15:20:18,034 - MainThread - INFO - [200_2] Data-derived mean initial temperature T_initial ≈ 298.150 K
+2025-12-04 15:20:20,716 - MainThread - INFO - Input scaler for 200_2 - mins: [0.         0.0149951  0.16491048 0.004     ], scales: [1.0038600e+03 2.0000981e-01 5.1790476e-03 3.2060756e-03]
+2025-12-04 15:20:20,717 - MainThread - INFO - Physics parameters loaded - V: 10.1V, I: 70A, Efficiency: 0.7
+2025-12-04 15:20:22,027 - MainThread - INFO - [200_2] Starting Stage 1 (data-only) training for 100 epochs...
+2025-12-04 15:32:03,722 - MainThread - INFO - [200_2] Stage 1 (data-only) training complete.
+2025-12-04 15:32:03,723 - MainThread - INFO - Model parameters: {'input_dim': 4, 'output_dim': 1, 'layer_sizes': [128, 128, 64, 64, 32, 16, 1], 'activation': 'relu', 'w_data': 0.001, 'w_pde': 1e-10, 'w_bc': 1e-08, 'w_ic': 0.0001}
+2025-12-04 15:32:03,723 - MainThread - INFO - Training parameters (PINN stage): {'epochs_data_only': 100, 'epochs_pinn': 250, 'batch_size': 8192, 'learning_rate': 5e-05, 'early_stopping_patience': 40, 'lr_reduce_patience': 20, 'lr_reduce_factor': 0.5, 'min_lr': 1e-06, 'pde_warmup_epochs': 20, 'max_grad_norm': 1.0, 'bc_batch_size': 2048, 'ic_batch_size': 2048, 'max_batches_per_epoch': 60, 'physics_batch_size': 2048}
+2025-12-04 15:32:03,723 - MainThread - INFO - Starting PINN training for experiment: 200_2
+2025-12-04 15:32:03,723 - MainThread - INFO - Configuration - Epochs: 250, Data Batch Size: 8192, Physics Batch Size: 2048
+2025-12-04 15:32:03,726 - MainThread - INFO - Dataset sizes - Train: 7055544, Validation: 1763887, Test: 979937
+2025-12-04 15:32:03,726 - MainThread - INFO - PDE domain size (X_all): 9799368 points
+2025-12-04 15:32:32,717 - MainThread - INFO - [200_2] Epoch 1/250 | Avg Total Loss: 1.0728e+02 | Val Data Loss: 5.4672e+01 | (Data=1.288e+02, PDE=2.175e+17, BC=2.222e+12, IC=2.009e+02) | w_data=1.0e+00, w_pde=0.0e+00, w_bc=0.0e+00, w_ic=0.0e+00
+2025-12-04 15:36:16,894 - MainThread - INFO - [200_2] Epoch 10/250 | Avg Total Loss: 7.4132e+01 | Val Data Loss: 5.0575e+01 | (Data=3.918e+01, PDE=1.801e+17, BC=2.182e+12, IC=1.619e+02) | w_data=1.0e+00, w_pde=0.0e+00, w_bc=0.0e+00, w_ic=0.0e+00
+2025-12-04 15:40:23,423 - MainThread - INFO - [200_2] Epoch 20/250 | Avg Total Loss: 7.1813e+01 | Val Data Loss: 5.0735e+01 | (Data=9.387e+01, PDE=2.451e+17, BC=2.541e+12, IC=8.684e+01) | w_data=1.0e+00, w_pde=0.0e+00, w_bc=0.0e+00, w_ic=0.0e+00
+2025-12-04 15:40:23,424 - MainThread - INFO - [200_2] Reducing learning rate from 5.00e-05 to 2.50e-05 after 20 epochs without sufficient improvement.
+2025-12-04 15:44:29,940 - MainThread - INFO - [200_2] Epoch 30/250 | Avg Total Loss: 3.8926e+08 | Val Data Loss: 5.1759e+04 | (Data=5.620e+04, PDE=3.162e+15, BC=1.039e+11, IC=1.151e+04) | w_data=1.0e+00, w_pde=1.1e-07, w_bc=2.0e-06, w_ic=1.0e-02
+2025-12-04 15:48:36,020 - MainThread - INFO - [200_2] Epoch 40/250 | Avg Total Loss: 1.3197e+08 | Val Data Loss: 1.0812e+05 | (Data=1.784e+05, PDE=7.384e+14, BC=8.094e+10, IC=8.283e+03) | w_data=1.0e+00, w_pde=1.2e-07, w_bc=2.4e-06, w_ic=1.0e-02
+2025-12-04 15:48:36,021 - MainThread - INFO - [200_2] Reducing learning rate from 2.50e-05 to 1.25e-05 after 20 epochs without sufficient improvement.
+2025-12-04 15:52:43,271 - MainThread - INFO - [200_2] Epoch 50/250 | Avg Total Loss: 9.5921e+07 | Val Data Loss: 1.7549e+05 | (Data=2.329e+05, PDE=6.055e+13, BC=1.015e+11, IC=1.261e+04) | w_data=1.0e+00, w_pde=1.3e-07, w_bc=2.8e-06, w_ic=1.0e-02
+2025-12-04 15:56:25,060 - MainThread - INFO - [200_2] Early stopping in PINN stage at epoch 59. Best validation data loss: 4.9604e+01
+2025-12-04 15:56:25,063 - MainThread - WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+2025-12-04 15:56:25,089 - MainThread - INFO - Model saved: model_200_2.h5
+2025-12-04 15:56:25,089 - MainThread - INFO - Input scaler saved: input_scaler_200_2.npz
+2025-12-04 15:56:26,146 - MainThread - INFO - PINN training plot saved for 200_2
+2025-12-04 15:56:26,147 - MainThread - INFO - Starting final evaluation for 200_2
+2025-12-04 16:09:58,610 - MainThread - INFO - 
+=== Training Evaluation Metrics for experiment 200_2 ===
+2025-12-04 16:09:58,610 - MainThread - INFO - RMSE: 7.0370
+2025-12-04 16:09:58,610 - MainThread - INFO - MAE: 2.5910
+2025-12-04 16:09:58,610 - MainThread - INFO - R²: 0.9991
+2025-12-04 16:09:58,610 - MainThread - INFO - Pearson Correlation: 0.9995

@@ -1,0 +1,67 @@
+2025-11-15 00:45:11,993 - MainThread - INFO - ✓ GPU memory growth enabled for 1 device(s)
+2025-11-15 00:45:11,993 - MainThread - INFO - 
+=== Experiment 1/1: 200_2 ===
+2025-11-15 00:45:12,199 - MainThread - INFO - Loaded data shape: X=(9799368, 4), y=(9799368, 1)
+2025-11-15 00:45:13,009 - MainThread - INFO - Final splits - Train: 2808323, Val: 702081, Test: 6288964
+2025-11-15 00:45:14,057 - MainThread - INFO - Model parameters: {'input_dim': 4, 'output_dim': 1, 'layer_sizes': [256, 256, 128, 128, 64, 64, 1], 'activation': 'relu', 'learning_rate': 0.001, 'w_data': 1.0, 'w_pde': 0, 'w_bc': 1e-05, 'w_ic': 0.01}
+2025-11-15 00:45:14,057 - MainThread - INFO - Training parameters: {'epochs': 500, 'batch_size': 262144, 'learning_rate': 0.0001, 'L_data_threshold': 0.5, 'w_data_new': 0.01, 'w_pde_new': 1e-14, 'early_stopping_patience': 50, 'lr_reduce_patience': 25}
+2025-11-15 00:45:14,057 - MainThread - INFO - Starting training for experiment: 200_2
+2025-11-15 00:45:14,057 - MainThread - INFO - Configuration - Epochs: 500, Data Batch Size: 262144, Physics Batch Size: 262144
+2025-11-15 00:45:14,678 - MainThread - INFO - Physics parameters loaded - V: 10.1V, I: 70A, Efficiency: 0.7
+2025-11-15 00:45:14,828 - MainThread - INFO - Dataset sizes - Train: 2808323, Validation: 702081, Test: 6288964
+2025-11-15 00:45:15,647 - MainThread - WARNING - Calling GradientTape.gradient on a persistent tape inside its context is significantly less efficient than calling it outside the context (it causes the gradient ops to be recorded on the tape, leading to increased CPU and memory usage). Only call GradientTape.gradient inside the context if you actually want to trace the gradient in order to compute higher order derivatives.
+2025-11-15 00:45:19,250 - MainThread - INFO - [200_2] Epoch 1/500 | Avg Loss: 1.2635e+03 (Data=1.031e+00, PDE=6.798e+09, BC=3.737e+07, IC=8.884e+04)
+2025-11-15 00:45:42,803 - MainThread - INFO - [200_2] Epoch 10/500 | Avg Loss: 1.2411e+03 (Data=2.036e+01, PDE=2.634e+13, BC=3.549e+07, IC=8.655e+04)
+2025-11-15 00:46:08,720 - MainThread - INFO - [200_2] Epoch 20/500 | Avg Loss: 1.2402e+03 (Data=2.075e+01, PDE=4.188e+13, BC=3.533e+07, IC=8.662e+04)
+2025-11-15 00:46:34,429 - MainThread - INFO - [200_2] Epoch 30/500 | Avg Loss: 1.2402e+03 (Data=1.908e+01, PDE=4.475e+13, BC=3.541e+07, IC=8.670e+04)
+2025-11-15 00:47:00,156 - MainThread - INFO - [200_2] Epoch 40/500 | Avg Loss: 1.2401e+03 (Data=1.963e+01, PDE=2.058e+13, BC=3.543e+07, IC=8.662e+04)
+2025-11-15 00:47:26,224 - MainThread - INFO - [200_2] Epoch 50/500 | Avg Loss: 1.2404e+03 (Data=1.998e+01, PDE=1.283e+13, BC=3.553e+07, IC=8.651e+04)
+2025-11-15 00:47:52,333 - MainThread - INFO - [200_2] Epoch 60/500 | Avg Loss: 1.2399e+03 (Data=1.921e+01, PDE=1.484e+13, BC=3.544e+07, IC=8.663e+04)
+2025-11-15 00:48:18,020 - MainThread - INFO - [200_2] Epoch 70/500 | Avg Loss: 1.2397e+03 (Data=1.871e+01, PDE=1.589e+13, BC=3.541e+07, IC=8.669e+04)
+2025-11-15 00:48:43,707 - MainThread - INFO - [200_2] Epoch 80/500 | Avg Loss: 1.2398e+03 (Data=1.787e+01, PDE=1.387e+13, BC=3.539e+07, IC=8.681e+04)
+2025-11-15 00:49:09,413 - MainThread - INFO - [200_2] Epoch 90/500 | Avg Loss: 1.2401e+03 (Data=1.740e+01, PDE=2.048e+13, BC=3.542e+07, IC=8.685e+04)
+2025-11-15 00:49:35,106 - MainThread - INFO - [200_2] Epoch 100/500 | Avg Loss: 1.2404e+03 (Data=1.685e+01, PDE=2.763e+13, BC=3.544e+07, IC=8.693e+04)
+2025-11-15 00:50:00,939 - MainThread - INFO - [200_2] Epoch 110/500 | Avg Loss: 1.2410e+03 (Data=1.457e+01, PDE=3.890e+13, BC=3.555e+07, IC=8.709e+04)
+2025-11-15 00:50:26,699 - MainThread - INFO - [200_2] Epoch 120/500 | Avg Loss: 1.2413e+03 (Data=1.394e+01, PDE=6.572e+13, BC=3.561e+07, IC=8.713e+04)
+2025-11-15 00:50:52,465 - MainThread - INFO - [200_2] Epoch 130/500 | Avg Loss: 1.2418e+03 (Data=1.478e+01, PDE=8.985e+13, BC=3.564e+07, IC=8.707e+04)
+2025-11-15 00:51:18,201 - MainThread - INFO - [200_2] Epoch 140/500 | Avg Loss: 1.2415e+03 (Data=1.460e+01, PDE=8.467e+13, BC=3.558e+07, IC=8.710e+04)
+2025-11-15 00:51:44,185 - MainThread - INFO - [200_2] Epoch 150/500 | Avg Loss: 1.2414e+03 (Data=1.396e+01, PDE=7.490e+13, BC=3.552e+07, IC=8.723e+04)
+2025-11-15 00:52:09,914 - MainThread - INFO - [200_2] Epoch 160/500 | Avg Loss: 1.2415e+03 (Data=1.387e+01, PDE=1.445e+14, BC=3.557e+07, IC=8.719e+04)
+2025-11-15 00:52:35,635 - MainThread - INFO - [200_2] Epoch 170/500 | Avg Loss: 1.2423e+03 (Data=1.338e+01, PDE=2.737e+14, BC=3.574e+07, IC=8.715e+04)
+2025-11-15 00:53:01,356 - MainThread - INFO - [200_2] Epoch 180/500 | Avg Loss: 1.2425e+03 (Data=1.414e+01, PDE=3.249e+14, BC=3.577e+07, IC=8.706e+04)
+2025-11-15 00:53:27,065 - MainThread - INFO - [200_2] Epoch 190/500 | Avg Loss: 1.2423e+03 (Data=1.450e+01, PDE=3.163e+14, BC=3.574e+07, IC=8.704e+04)
+2025-11-15 00:53:52,935 - MainThread - INFO - [200_2] Epoch 200/500 | Avg Loss: 1.2419e+03 (Data=1.419e+01, PDE=2.100e+14, BC=3.569e+07, IC=8.708e+04)
+2025-11-15 00:54:18,636 - MainThread - INFO - [200_2] Epoch 210/500 | Avg Loss: 1.2421e+03 (Data=1.375e+01, PDE=3.381e+14, BC=3.572e+07, IC=8.713e+04)
+2025-11-15 00:54:44,596 - MainThread - INFO - [200_2] Epoch 220/500 | Avg Loss: 1.2431e+03 (Data=1.385e+01, PDE=6.977e+14, BC=3.589e+07, IC=8.704e+04)
+2025-11-15 00:55:10,255 - MainThread - INFO - [200_2] Epoch 230/500 | Avg Loss: 1.2440e+03 (Data=1.405e+01, PDE=8.423e+14, BC=3.601e+07, IC=8.699e+04)
+2025-11-15 00:55:35,958 - MainThread - INFO - [200_2] Epoch 240/500 | Avg Loss: 1.2445e+03 (Data=1.425e+01, PDE=9.589e+14, BC=3.610e+07, IC=8.694e+04)
+2025-11-15 00:56:01,686 - MainThread - INFO - [200_2] Epoch 250/500 | Avg Loss: 1.2447e+03 (Data=1.430e+01, PDE=8.899e+14, BC=3.613e+07, IC=8.691e+04)
+2025-11-15 00:56:27,359 - MainThread - INFO - [200_2] Epoch 260/500 | Avg Loss: 1.2450e+03 (Data=1.449e+01, PDE=1.010e+15, BC=3.617e+07, IC=8.688e+04)
+2025-11-15 00:56:53,597 - MainThread - INFO - [200_2] Epoch 270/500 | Avg Loss: 1.2425e+03 (Data=1.531e+01, PDE=8.782e+14, BC=3.586e+07, IC=8.687e+04)
+2025-11-15 00:57:19,722 - MainThread - INFO - [200_2] Epoch 280/500 | Avg Loss: 1.2426e+03 (Data=1.598e+01, PDE=1.030e+15, BC=3.586e+07, IC=8.680e+04)
+2025-11-15 00:57:45,394 - MainThread - INFO - [200_2] Epoch 290/500 | Avg Loss: 1.2419e+03 (Data=1.663e+01, PDE=8.679e+14, BC=3.575e+07, IC=8.679e+04)
+2025-11-15 00:58:11,254 - MainThread - INFO - [200_2] Epoch 300/500 | Avg Loss: 1.2429e+03 (Data=1.623e+01, PDE=1.143e+15, BC=3.593e+07, IC=8.674e+04)
+2025-11-15 00:58:37,164 - MainThread - INFO - [200_2] Epoch 310/500 | Avg Loss: 1.2429e+03 (Data=1.673e+01, PDE=1.275e+15, BC=3.591e+07, IC=8.672e+04)
+2025-11-15 00:59:02,772 - MainThread - INFO - [200_2] Epoch 320/500 | Avg Loss: 1.2438e+03 (Data=1.621e+01, PDE=7.265e+14, BC=3.608e+07, IC=8.669e+04)
+2025-11-15 00:59:28,386 - MainThread - INFO - [200_2] Epoch 330/500 | Avg Loss: 1.2447e+03 (Data=1.598e+01, PDE=5.648e+14, BC=3.620e+07, IC=8.668e+04)
+2025-11-15 00:59:54,201 - MainThread - INFO - [200_2] Epoch 340/500 | Avg Loss: 1.2444e+03 (Data=1.561e+01, PDE=5.679e+14, BC=3.617e+07, IC=8.671e+04)
+2025-11-15 01:00:19,878 - MainThread - INFO - [200_2] Epoch 350/500 | Avg Loss: 1.2442e+03 (Data=1.578e+01, PDE=6.132e+14, BC=3.614e+07, IC=8.670e+04)
+2025-11-15 01:00:45,564 - MainThread - INFO - [200_2] Epoch 360/500 | Avg Loss: 1.2430e+03 (Data=1.552e+01, PDE=5.269e+14, BC=3.601e+07, IC=8.674e+04)
+2025-11-15 01:01:11,240 - MainThread - INFO - [200_2] Epoch 370/500 | Avg Loss: 1.2430e+03 (Data=1.475e+01, PDE=5.061e+14, BC=3.604e+07, IC=8.680e+04)
+2025-11-15 01:01:36,909 - MainThread - INFO - [200_2] Epoch 380/500 | Avg Loss: 1.2433e+03 (Data=1.440e+01, PDE=4.757e+14, BC=3.607e+07, IC=8.682e+04)
+2025-11-15 01:02:02,588 - MainThread - INFO - [200_2] Epoch 390/500 | Avg Loss: 1.2438e+03 (Data=1.407e+01, PDE=5.397e+14, BC=3.615e+07, IC=8.683e+04)
+2025-11-15 01:02:28,440 - MainThread - INFO - [200_2] Epoch 400/500 | Avg Loss: 1.2442e+03 (Data=1.411e+01, PDE=5.394e+14, BC=3.619e+07, IC=8.682e+04)
+2025-11-15 01:02:54,120 - MainThread - INFO - [200_2] Epoch 410/500 | Avg Loss: 1.2441e+03 (Data=1.369e+01, PDE=6.962e+14, BC=3.617e+07, IC=8.687e+04)
+2025-11-15 01:03:20,153 - MainThread - INFO - [200_2] Epoch 420/500 | Avg Loss: 1.2436e+03 (Data=1.347e+01, PDE=4.989e+14, BC=3.609e+07, IC=8.692e+04)
+2025-11-15 01:03:45,918 - MainThread - INFO - [200_2] Epoch 430/500 | Avg Loss: 1.2419e+03 (Data=1.556e+01, PDE=3.706e+14, BC=3.578e+07, IC=8.687e+04)
+2025-11-15 01:04:11,658 - MainThread - INFO - [200_2] Epoch 440/500 | Avg Loss: 1.2423e+03 (Data=1.348e+01, PDE=1.437e+14, BC=3.582e+07, IC=8.707e+04)
+2025-11-15 01:04:37,404 - MainThread - INFO - [200_2] Epoch 450/500 | Avg Loss: 1.2426e+03 (Data=1.407e+01, PDE=1.831e+14, BC=3.585e+07, IC=8.700e+04)
+2025-11-15 01:05:03,073 - MainThread - INFO - [200_2] Epoch 460/500 | Avg Loss: 1.2430e+03 (Data=1.414e+01, PDE=1.610e+14, BC=3.590e+07, IC=8.699e+04)
+2025-11-15 01:05:28,904 - MainThread - INFO - [200_2] Epoch 470/500 | Avg Loss: 1.2433e+03 (Data=1.396e+01, PDE=1.811e+14, BC=3.595e+07, IC=8.698e+04)
+2025-11-15 01:05:54,602 - MainThread - INFO - [200_2] Epoch 480/500 | Avg Loss: 1.2435e+03 (Data=1.392e+01, PDE=1.635e+14, BC=3.598e+07, IC=8.697e+04)
+2025-11-15 01:06:20,285 - MainThread - INFO - [200_2] Epoch 490/500 | Avg Loss: 1.2436e+03 (Data=1.406e+01, PDE=2.427e+14, BC=3.601e+07, IC=8.695e+04)
+2025-11-15 01:06:45,972 - MainThread - INFO - [200_2] Epoch 500/500 | Avg Loss: 1.2437e+03 (Data=1.415e+01, PDE=2.636e+14, BC=3.603e+07, IC=8.693e+04)
+2025-11-15 01:06:45,973 - MainThread - WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+2025-11-15 01:06:45,987 - MainThread - INFO - Model saved: model_200_2.h5
+2025-11-15 01:06:46,183 - MainThread - INFO - Training plot saved for 200_2
+2025-11-15 01:06:46,183 - MainThread - INFO - Starting evaluation for 200_2

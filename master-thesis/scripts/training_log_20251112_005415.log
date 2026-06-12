@@ -1,0 +1,6 @@
+2025-11-12 00:54:15,958 - MainThread - INFO - Enabled memory growth on 1 GPU(s)
+2025-11-12 00:54:15,958 - MainThread - INFO - === Experiment 1/1: 200_2 ===
+2025-11-12 00:54:17,611 - MainThread - INFO - Splits - Train: 2808323, Val: 702081, Test: 6288964
+2025-11-12 00:55:31,290 - MainThread - INFO - [200_2] Epoch 1/200 - AvgLoss=4.081795e-01 L_data=9.691136e-02 L_pde=1.402938e+19 L_bc=3.711417e+07 L_ic=8.889434e+04 Weights={'w_data': 1.0, 'w_pde': 0.0, 'w_bc': 0.0, 'w_ic': 0.0}
+2025-11-12 01:01:17,457 - MainThread - INFO - [200_2] Epoch 6/200 - AvgLoss=3.051010e+14 L_data=1.245438e+02 L_pde=1.216215e+19 L_bc=3.670774e+07 L_ic=8.705266e+04 Weights={'w_data': 1.0, 'w_pde': 2.5e-05, 'w_bc': 5e-06, 'w_ic': 5e-06}
+2025-11-12 01:06:59,965 - MainThread - INFO - [200_2] Epoch 11/200 - AvgLoss=5.755416e+14 L_data=1.314362e+02 L_pde=1.314294e+19 L_bc=3.919682e+07 L_ic=9.035508e+04 Weights={'w_data': 1.0, 'w_pde': 5e-05, 'w_bc': 1e-05, 'w_ic': 1e-05}

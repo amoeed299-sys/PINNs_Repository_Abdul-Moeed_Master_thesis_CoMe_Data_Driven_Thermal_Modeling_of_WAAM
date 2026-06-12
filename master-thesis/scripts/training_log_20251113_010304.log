@@ -1,0 +1,12 @@
+2025-11-13 01:03:04,658 - MainThread - INFO - Warning: YAML file not found for 200_2: /home/amoeed/master-thesis/scripts/../data/pre-processed/experiment_200_2.yaml
+2025-11-13 01:03:04,834 - MainThread - INFO - ✓ GPU memory growth enabled for 1 device(s)
+2025-11-13 01:03:04,834 - MainThread - INFO - 
+=== Experiment 1/1: 200_2 ===
+2025-11-13 01:03:04,834 - MainThread - INFO - Skipping 200_2 because YAML parameters are missing.
+2025-11-13 01:03:04,834 - MainThread - INFO - 
+=== Training Complete ===
+2025-11-13 01:03:04,834 - MainThread - INFO - Trained 0 models successfully!
+2025-11-13 01:03:04,834 - MainThread - INFO - All models saved in 'trained_models_PINNS/' directory
+2025-11-13 01:03:04,834 - MainThread - INFO - Evaluation metrics saved in 'evaluation_results_PINNS/' directory
+2025-11-13 01:03:04,834 - MainThread - INFO - Training plots saved in 'training_plots_PINNS/' directory
+2025-11-13 01:03:04,834 - MainThread - INFO - No test metrics available. Please run the training loop first.

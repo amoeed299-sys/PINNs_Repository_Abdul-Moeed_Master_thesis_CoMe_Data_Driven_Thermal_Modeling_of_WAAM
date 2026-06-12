@@ -1,0 +1,59 @@
+2025-11-11 00:18:21,942 - MainThread - INFO - ✓ GPU memory growth enabled for 1 device(s)
+2025-11-11 00:18:21,942 - MainThread - INFO - 
+=== Experiment 1/1: 200_2 ===
+2025-11-11 00:18:25,499 - MainThread - WARNING - Calling GradientTape.gradient on a persistent tape inside its context is significantly less efficient than calling it outside the context (it causes the gradient ops to be recorded on the tape, leading to increased CPU and memory usage). Only call GradientTape.gradient inside the context if you actually want to trace the gradient in order to compute higher order derivatives.
+2025-11-11 00:18:37,431 - MainThread - INFO - [200_2] Epoch 1/500 - Loss=7.3994e+03
+2025-11-11 00:20:08,710 - MainThread - INFO - [200_2] Epoch 10/500 - Loss=3.0245e+01
+2025-11-11 00:21:51,718 - MainThread - INFO - [200_2] Epoch 20/500 - Loss=2.7962e+01
+2025-11-11 00:23:32,808 - MainThread - INFO - [200_2] Epoch 30/500 - Loss=2.7006e+01
+2025-11-11 00:25:15,528 - MainThread - INFO - [200_2] Epoch 40/500 - Loss=2.6209e+01
+2025-11-11 00:26:57,818 - MainThread - INFO - [200_2] Epoch 50/500 - Loss=2.6087e+01
+2025-11-11 00:28:41,622 - MainThread - INFO - [200_2] Epoch 60/500 - Loss=2.5857e+01
+2025-11-11 00:30:24,008 - MainThread - INFO - [200_2] Epoch 70/500 - Loss=2.5654e+01
+2025-11-11 00:32:06,046 - MainThread - INFO - [200_2] Epoch 80/500 - Loss=2.5789e+01
+2025-11-11 00:33:48,091 - MainThread - INFO - [200_2] Epoch 90/500 - Loss=2.6045e+01
+2025-11-11 00:35:30,083 - MainThread - INFO - [200_2] Epoch 100/500 - Loss=2.6213e+01
+2025-11-11 00:37:11,257 - MainThread - INFO - [200_2] Epoch 110/500 - Loss=2.6258e+01
+2025-11-11 00:38:52,189 - MainThread - INFO - [200_2] Epoch 120/500 - Loss=2.5518e+01
+2025-11-11 00:40:36,457 - MainThread - INFO - [200_2] Epoch 130/500 - Loss=2.5370e+01
+2025-11-11 00:42:17,338 - MainThread - INFO - [200_2] Epoch 140/500 - Loss=2.4392e+01
+2025-11-11 00:43:58,270 - MainThread - INFO - [200_2] Epoch 150/500 - Loss=2.4316e+01
+2025-11-11 00:45:39,947 - MainThread - INFO - [200_2] Epoch 160/500 - Loss=2.4704e+01
+2025-11-11 00:47:23,751 - MainThread - INFO - [200_2] Epoch 170/500 - Loss=2.4800e+01
+2025-11-11 00:49:05,636 - MainThread - INFO - [200_2] Epoch 180/500 - Loss=2.4140e+01
+2025-11-11 00:50:47,571 - MainThread - INFO - [200_2] Epoch 190/500 - Loss=2.4194e+01
+2025-11-11 00:52:30,122 - MainThread - INFO - [200_2] Epoch 200/500 - Loss=2.4427e+01
+2025-11-11 00:54:12,785 - MainThread - INFO - [200_2] Epoch 210/500 - Loss=2.4498e+01
+2025-11-11 00:55:54,401 - MainThread - INFO - [200_2] Epoch 220/500 - Loss=2.4725e+01
+2025-11-11 00:57:36,250 - MainThread - INFO - [200_2] Epoch 230/500 - Loss=2.4321e+01
+2025-11-11 00:59:17,019 - MainThread - INFO - [200_2] Epoch 240/500 - Loss=2.4239e+01
+2025-11-11 01:01:00,650 - MainThread - INFO - [200_2] Epoch 250/500 - Loss=2.4468e+01
+2025-11-11 01:02:43,056 - MainThread - INFO - [200_2] Epoch 260/500 - Loss=2.4586e+01
+2025-11-11 01:04:25,937 - MainThread - INFO - [200_2] Epoch 270/500 - Loss=2.4755e+01
+2025-11-11 01:06:07,911 - MainThread - INFO - [200_2] Epoch 280/500 - Loss=2.5184e+01
+2025-11-11 01:07:49,882 - MainThread - INFO - [200_2] Epoch 290/500 - Loss=2.4704e+01
+2025-11-11 01:09:31,478 - MainThread - INFO - [200_2] Epoch 300/500 - Loss=2.4693e+01
+2025-11-11 01:11:13,728 - MainThread - INFO - [200_2] Epoch 310/500 - Loss=2.4657e+01
+2025-11-11 01:12:55,077 - MainThread - INFO - [200_2] Epoch 320/500 - Loss=2.5097e+01
+2025-11-11 01:14:38,897 - MainThread - INFO - [200_2] Epoch 330/500 - Loss=2.5428e+01
+2025-11-11 01:16:20,326 - MainThread - INFO - [200_2] Epoch 340/500 - Loss=2.5653e+01
+2025-11-11 01:18:02,136 - MainThread - INFO - [200_2] Epoch 350/500 - Loss=2.5262e+01
+2025-11-11 01:19:43,601 - MainThread - INFO - [200_2] Epoch 360/500 - Loss=2.4955e+01
+2025-11-11 01:21:24,732 - MainThread - INFO - [200_2] Epoch 370/500 - Loss=2.4883e+01
+2025-11-11 01:23:06,935 - MainThread - INFO - [200_2] Epoch 380/500 - Loss=2.4347e+01
+2025-11-11 01:24:50,116 - MainThread - INFO - [200_2] Epoch 390/500 - Loss=2.4614e+01
+2025-11-11 01:26:31,386 - MainThread - INFO - [200_2] Epoch 400/500 - Loss=2.4675e+01
+2025-11-11 01:28:12,537 - MainThread - INFO - [200_2] Epoch 410/500 - Loss=2.4697e+01
+2025-11-11 01:29:54,044 - MainThread - INFO - [200_2] Epoch 420/500 - Loss=2.4465e+01
+2025-11-11 01:31:37,799 - MainThread - INFO - [200_2] Epoch 430/500 - Loss=2.4731e+01
+2025-11-11 01:33:19,641 - MainThread - INFO - [200_2] Epoch 440/500 - Loss=2.5313e+01
+2025-11-11 01:35:00,847 - MainThread - INFO - [200_2] Epoch 450/500 - Loss=2.6154e+01
+2025-11-11 01:36:44,806 - MainThread - INFO - [200_2] Epoch 460/500 - Loss=2.5856e+01
+2025-11-11 01:38:28,424 - MainThread - INFO - [200_2] Epoch 470/500 - Loss=2.6041e+01
+2025-11-11 01:40:13,257 - MainThread - INFO - [200_2] Epoch 480/500 - Loss=2.6094e+01
+2025-11-11 01:41:57,031 - MainThread - INFO - [200_2] Epoch 490/500 - Loss=2.6014e+01
+2025-11-11 01:43:42,641 - MainThread - INFO - [200_2] Epoch 500/500 - Loss=2.6009e+01
+2025-11-11 01:43:42,641 - MainThread - WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+2025-11-11 01:43:42,729 - MainThread - INFO - Model 200_2 saved.
+2025-11-11 01:44:21,902 - MainThread - INFO - Predicted vs Actual plot saved for 200_2.
+2025-11-11 01:44:22,237 - MainThread - INFO - Experiment 200_2 done. R2=-1.2393, Pearson=0.0968

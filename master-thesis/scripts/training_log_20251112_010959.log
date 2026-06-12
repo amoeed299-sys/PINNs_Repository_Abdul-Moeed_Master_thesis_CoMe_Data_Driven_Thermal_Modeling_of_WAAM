@@ -1,0 +1,3 @@
+2025-11-12 01:09:59,570 - MainThread - INFO - Enabled memory growth on 1 GPU(s)
+2025-11-12 01:09:59,571 - MainThread - INFO - === Experiment 1/1: 200_2 ===
+2025-11-12 01:11:14,763 - MainThread - INFO - [200_2] Epoch 1/40000 - AvgLoss=1.263759e+19 L_data=3.360452e+05 L_pde=1.126280e+19 L_bc=3.643693e+07 L_ic=8.631718e+04 Weights={'w_data': 0.0, 'w_pde': 1.0, 'w_bc': 1.0, 'w_ic': 0.001}

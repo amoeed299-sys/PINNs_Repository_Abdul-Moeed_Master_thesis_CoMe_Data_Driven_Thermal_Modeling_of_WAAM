@@ -1,0 +1,14 @@
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+saturn-credentials.txt
+*.key
+*.pem
+.vs/
+.vscode/
+.vs/
+.vscode/

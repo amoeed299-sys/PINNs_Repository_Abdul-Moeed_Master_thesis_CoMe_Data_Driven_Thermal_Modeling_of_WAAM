@@ -1,0 +1,15 @@
+2025-11-11 22:41:19,725 - MainThread - INFO - Enabled memory growth on 1 GPU(s)
+2025-11-11 22:41:19,725 - MainThread - INFO - === Experiment 1/1: 200_2 ===
+2025-11-11 22:41:21,307 - MainThread - INFO - Splits - Train: 2808323, Val: 702081, Test: 6288964
+2025-11-11 22:43:47,170 - MainThread - INFO - [200_2] Epoch 1/200 - AvgLoss=2.537793e-01 L_data=9.362e-02, L_pde=1.257e+19, L_bc=7.093e+12, L_ic=1.335e+04 weights(w_data,w_pde,w_bc,w_ic)=(1.000e+00,0.000e+00,0.000e+00,0.000e+00)
+2025-11-11 22:55:39,664 - MainThread - INFO - [200_2] Epoch 6/200 - AvgLoss=2.039141e-02 L_data=1.267e-02, L_pde=1.355e+19, L_bc=7.035e+12, L_ic=9.763e+02 weights(w_data,w_pde,w_bc,w_ic)=(1.000e+00,0.000e+00,0.000e+00,0.000e+00)
+2025-11-11 23:07:23,378 - MainThread - INFO - [200_2] Epoch 11/200 - AvgLoss=8.544946e-03 L_data=6.479e-03, L_pde=1.488e+19, L_bc=6.217e+12, L_ic=1.323e+02 weights(w_data,w_pde,w_bc,w_ic)=(1.000e+00,0.000e+00,0.000e+00,0.000e+00)
+2025-11-11 23:19:02,330 - MainThread - INFO - [200_2] Epoch 16/200 - AvgLoss=7.714945e-03 L_data=3.699e-03, L_pde=1.045e+19, L_bc=6.406e+12, L_ic=2.550e+01 weights(w_data,w_pde,w_bc,w_ic)=(1.000e+00,0.000e+00,0.000e+00,2.500e-06)
+2025-11-11 23:30:40,876 - MainThread - INFO - [200_2] Epoch 21/200 - AvgLoss=5.709605e-03 L_data=4.700e-03, L_pde=1.367e+19, L_bc=5.687e+12, L_ic=8.597e+00 weights(w_data,w_pde,w_bc,w_ic)=(1.000e+00,0.000e+00,0.000e+00,5.000e-06)
+2025-11-11 23:42:24,937 - MainThread - INFO - [200_2] Epoch 26/200 - AvgLoss=2.608493e+03 L_data=1.104e+00, L_pde=1.364e+19, L_bc=6.923e+08, L_ic=3.662e+04 weights(w_data,w_pde,w_bc,w_ic)=(1.000e+00,0.000e+00,2.500e-06,7.500e-06)
+2025-11-11 23:54:04,071 - MainThread - INFO - [200_2] Epoch 31/200 - AvgLoss=2.107793e+01 L_data=2.010e+00, L_pde=1.401e+19, L_bc=1.646e+06, L_ic=3.349e+03 weights(w_data,w_pde,w_bc,w_ic)=(1.000e+00,0.000e+00,5.000e-06,1.000e-05)
+2025-11-12 00:05:44,669 - MainThread - INFO - [200_2] Epoch 36/200 - AvgLoss=6.204783e+00 L_data=1.506e+00, L_pde=1.191e+19, L_bc=1.121e+05, L_ic=3.382e+03 weights(w_data,w_pde,w_bc,w_ic)=(1.000e+00,0.000e+00,7.500e-06,1.000e-05)
+2025-11-12 00:17:29,885 - MainThread - INFO - [200_2] Epoch 41/200 - AvgLoss=1.694751e+00 L_data=1.133e+00, L_pde=1.120e+19, L_bc=1.470e+04, L_ic=1.126e+04 weights(w_data,w_pde,w_bc,w_ic)=(1.000e+00,0.000e+00,1.000e-05,1.000e-05)
+2025-11-12 00:29:11,596 - MainThread - INFO - [200_2] Epoch 46/200 - AvgLoss=5.347356e+13 L_data=4.446e+02, L_pde=6.181e+18, L_bc=1.595e+15, L_ic=2.412e+08 weights(w_data,w_pde,w_bc,w_ic)=(1.000e+00,1.250e-05,1.000e-05,1.000e-05)
+2025-11-12 00:40:49,886 - MainThread - INFO - [200_2] Epoch 51/200 - AvgLoss=7.708939e+13 L_data=2.962e+02, L_pde=3.269e+18, L_bc=3.387e+15, L_ic=1.227e+08 weights(w_data,w_pde,w_bc,w_ic)=(1.000e+00,2.500e-05,1.000e-05,1.000e-05)
+2025-11-12 00:52:30,091 - MainThread - INFO - [200_2] Epoch 56/200 - AvgLoss=8.427103e+13 L_data=8.166e+01, L_pde=2.849e+18, L_bc=2.983e+14, L_ic=9.276e+07 weights(w_data,w_pde,w_bc,w_ic)=(1.000e+00,3.750e-05,1.000e-05,1.000e-05)

@@ -1,0 +1,93 @@
+2025-11-14 17:02:29,103 - MainThread - INFO - ✓ GPU memory growth enabled for 1 device(s)
+2025-11-14 17:02:29,103 - MainThread - INFO - 
+=== Experiment 1/1: 200_2 ===
+2025-11-14 17:02:29,323 - MainThread - INFO - Loaded data shape: X=(9799368, 4), y=(9799368, 1)
+2025-11-14 17:02:30,048 - MainThread - INFO - Final splits - Train: 2808323, Val: 702081, Test: 6288964
+2025-11-14 17:02:30,232 - MainThread - INFO - Input scaler for 200_2 - mins: [0.         0.0149951  0.16491048 0.004     ], scales: [1.0038600e+03 2.0000981e-01 5.1790476e-03 3.2060756e-03]
+2025-11-14 17:02:31,243 - MainThread - INFO - Model parameters: {'input_dim': 4, 'output_dim': 1, 'layer_sizes': [128, 128, 64, 64, 32, 32, 1], 'activation': 'tanh', 'w_data': 0.001, 'w_pde': 1e-17, 'w_bc': 1e-06, 'w_ic': 1e-07}
+2025-11-14 17:02:31,243 - MainThread - INFO - Training parameters: {'epochs': 300, 'batch_size': 4096, 'learning_rate': 5e-05, 'early_stopping_patience': 40, 'lr_reduce_patience': 20, 'lr_reduce_factor': 0.5, 'min_lr': 1e-06, 'pde_warmup_epochs': 40, 'max_grad_norm': 1.0, 'bc_batch_size': 2048, 'ic_batch_size': 2048, 'max_batches_per_epoch': 200}
+2025-11-14 17:02:31,243 - MainThread - INFO - Starting training for experiment: 200_2
+2025-11-14 17:02:31,243 - MainThread - INFO - Configuration - Epochs: 300, Data Batch Size: 4096, Physics Batch Size: 4096
+2025-11-14 17:02:31,245 - MainThread - INFO - Physics parameters loaded - V: 10.1V, I: 70A, Efficiency: 0.7
+2025-11-14 17:02:31,426 - MainThread - INFO - Dataset sizes - Train: 2808323, Validation: 702081, Test: 6288964
+2025-11-14 17:02:31,867 - MainThread - WARNING - Calling GradientTape.gradient on a persistent tape inside its context is significantly less efficient than calling it outside the context (it causes the gradient ops to be recorded on the tape, leading to increased CPU and memory usage). Only call GradientTape.gradient inside the context if you actually want to trace the gradient in order to compute higher order derivatives.
+2025-11-14 17:03:09,409 - MainThread - INFO - [200_2] Epoch 1/300 | Avg Total Loss: 3.4249e+05 | Val Data Loss: 3.4073e+05 | (Data=3.410e+05, PDE=1.285e+19, BC=1.074e+08, IC=8.634e+04) | w_data=1.0e+00, w_pde=0.0e+00, w_bc=0.0e+00, w_ic=0.0e+00
+2025-11-14 17:08:39,641 - MainThread - INFO - [200_2] Epoch 10/300 | Avg Total Loss: 3.3452e+05 | Val Data Loss: 3.3464e+05 | (Data=3.496e+05, PDE=1.215e+19, BC=3.366e+07, IC=8.303e+04) | w_data=1.0e+00, w_pde=0.0e+00, w_bc=0.0e+00, w_ic=0.0e+00
+2025-11-14 17:14:40,218 - MainThread - INFO - [200_2] Epoch 20/300 | Avg Total Loss: 3.3095e+05 | Val Data Loss: 3.3102e+05 | (Data=3.381e+05, PDE=1.281e+19, BC=3.397e+07, IC=8.107e+04) | w_data=1.0e+00, w_pde=0.0e+00, w_bc=0.0e+00, w_ic=0.0e+00
+2025-11-14 17:14:40,219 - MainThread - INFO - [200_2] Reducing learning rate from 5.00e-05 to 2.50e-05 after 20 epochs without sufficient improvement.
+2025-11-14 17:20:41,639 - MainThread - INFO - [200_2] Epoch 30/300 | Avg Total Loss: 3.2922e+05 | Val Data Loss: 3.2927e+05 | (Data=3.335e+05, PDE=1.268e+19, BC=3.371e+07, IC=8.012e+04) | w_data=1.0e+00, w_pde=0.0e+00, w_bc=0.0e+00, w_ic=0.0e+00
+2025-11-14 17:26:53,474 - MainThread - INFO - [200_2] Epoch 40/300 | Avg Total Loss: 3.2702e+05 | Val Data Loss: 3.2753e+05 | (Data=3.279e+05, PDE=1.431e+19, BC=3.337e+07, IC=7.918e+04) | w_data=1.0e+00, w_pde=0.0e+00, w_bc=0.0e+00, w_ic=0.0e+00
+2025-11-14 17:26:53,474 - MainThread - INFO - [200_2] Reducing learning rate from 2.50e-05 to 1.25e-05 after 20 epochs without sufficient improvement.
+2025-11-14 17:33:02,668 - MainThread - INFO - [200_2] Epoch 50/300 | Avg Total Loss: 3.2648e+05 | Val Data Loss: 3.2667e+05 | (Data=3.187e+05, PDE=1.259e+19, BC=3.319e+07, IC=7.872e+04) | w_data=1.0e+00, w_pde=2.8e-21, w_bc=1.7e-07, w_ic=9.2e-05
+2025-11-14 17:39:05,012 - MainThread - INFO - [200_2] Epoch 60/300 | Avg Total Loss: 3.2553e+05 | Val Data Loss: 3.2580e+05 | (Data=3.184e+05, PDE=1.325e+19, BC=3.301e+07, IC=7.826e+04) | w_data=1.0e+00, w_pde=4.0e-21, w_bc=2.1e-07, w_ic=9.0e-05
+2025-11-14 17:39:05,012 - MainThread - INFO - [200_2] Reducing learning rate from 1.25e-05 to 6.25e-06 after 20 epochs without sufficient improvement.
+2025-11-14 17:45:04,276 - MainThread - INFO - [200_2] Epoch 70/300 | Avg Total Loss: 3.2496e+05 | Val Data Loss: 3.2537e+05 | (Data=3.268e+05, PDE=1.286e+19, BC=3.292e+07, IC=7.802e+04) | w_data=1.0e+00, w_pde=5.4e-21, w_bc=2.4e-07, w_ic=8.8e-05
+2025-11-14 17:51:04,820 - MainThread - INFO - [200_2] Epoch 80/300 | Avg Total Loss: 3.2421e+05 | Val Data Loss: 3.2494e+05 | (Data=3.228e+05, PDE=1.299e+19, BC=3.283e+07, IC=7.779e+04) | w_data=1.0e+00, w_pde=7.1e-21, w_bc=2.7e-07, w_ic=8.7e-05
+2025-11-14 17:51:04,821 - MainThread - INFO - [200_2] Reducing learning rate from 6.25e-06 to 3.12e-06 after 20 epochs without sufficient improvement.
+2025-11-14 17:57:07,153 - MainThread - INFO - [200_2] Epoch 90/300 | Avg Total Loss: 3.2335e+05 | Val Data Loss: 3.2473e+05 | (Data=3.232e+05, PDE=1.057e+19, BC=3.278e+07, IC=7.768e+04) | w_data=1.0e+00, w_pde=9.0e-21, w_bc=3.0e-07, w_ic=8.5e-05
+2025-11-14 18:03:10,562 - MainThread - INFO - [200_2] Epoch 100/300 | Avg Total Loss: 3.2434e+05 | Val Data Loss: 3.2451e+05 | (Data=3.175e+05, PDE=1.317e+19, BC=3.273e+07, IC=7.756e+04) | w_data=1.0e+00, w_pde=1.1e-20, w_bc=3.4e-07, w_ic=8.3e-05
+2025-11-14 18:03:10,563 - MainThread - INFO - [200_2] Reducing learning rate from 3.12e-06 to 1.56e-06 after 20 epochs without sufficient improvement.
+2025-11-14 18:09:30,358 - MainThread - INFO - [200_2] Epoch 110/300 | Avg Total Loss: 3.2387e+05 | Val Data Loss: 3.2441e+05 | (Data=3.268e+05, PDE=1.202e+19, BC=3.271e+07, IC=7.751e+04) | w_data=1.0e+00, w_pde=1.3e-20, w_bc=3.7e-07, w_ic=8.2e-05
+2025-11-14 18:15:32,596 - MainThread - INFO - [200_2] Epoch 120/300 | Avg Total Loss: 3.2357e+05 | Val Data Loss: 3.2430e+05 | (Data=3.258e+05, PDE=1.272e+19, BC=3.269e+07, IC=7.745e+04) | w_data=1.0e+00, w_pde=1.6e-20, w_bc=4.0e-07, w_ic=8.0e-05
+2025-11-14 18:15:32,596 - MainThread - INFO - [200_2] Reducing learning rate from 1.56e-06 to 1.00e-06 after 20 epochs without sufficient improvement.
+2025-11-14 18:21:33,668 - MainThread - INFO - [200_2] Epoch 130/300 | Avg Total Loss: 3.2432e+05 | Val Data Loss: 3.2423e+05 | (Data=3.244e+05, PDE=1.325e+19, BC=3.267e+07, IC=7.741e+04) | w_data=1.0e+00, w_pde=1.9e-20, w_bc=4.4e-07, w_ic=7.8e-05
+2025-11-14 18:27:38,716 - MainThread - INFO - [200_2] Epoch 140/300 | Avg Total Loss: 3.2366e+05 | Val Data Loss: 3.2416e+05 | (Data=3.188e+05, PDE=1.387e+19, BC=3.266e+07, IC=7.738e+04) | w_data=1.0e+00, w_pde=2.2e-20, w_bc=4.7e-07, w_ic=7.7e-05
+2025-11-14 18:33:39,869 - MainThread - INFO - [200_2] Epoch 150/300 | Avg Total Loss: 3.2371e+05 | Val Data Loss: 3.2409e+05 | (Data=3.220e+05, PDE=1.387e+19, BC=3.264e+07, IC=7.734e+04) | w_data=1.0e+00, w_pde=2.5e-20, w_bc=5.0e-07, w_ic=7.5e-05
+2025-11-14 18:39:44,169 - MainThread - INFO - [200_2] Epoch 160/300 | Avg Total Loss: 3.2386e+05 | Val Data Loss: 3.2402e+05 | (Data=3.288e+05, PDE=1.316e+19, BC=3.263e+07, IC=7.730e+04) | w_data=1.0e+00, w_pde=2.8e-20, w_bc=5.4e-07, w_ic=7.3e-05
+2025-11-14 18:45:47,008 - MainThread - INFO - [200_2] Epoch 170/300 | Avg Total Loss: 3.2370e+05 | Val Data Loss: 3.2395e+05 | (Data=3.268e+05, PDE=1.158e+19, BC=3.261e+07, IC=7.726e+04) | w_data=1.0e+00, w_pde=3.2e-20, w_bc=5.7e-07, w_ic=7.2e-05
+2025-11-14 18:51:50,693 - MainThread - INFO - [200_2] Epoch 180/300 | Avg Total Loss: 3.2395e+05 | Val Data Loss: 3.2388e+05 | (Data=3.171e+05, PDE=1.294e+19, BC=3.259e+07, IC=7.723e+04) | w_data=1.0e+00, w_pde=3.6e-20, w_bc=6.0e-07, w_ic=7.0e-05
+2025-11-14 18:57:55,172 - MainThread - INFO - [200_2] Epoch 190/300 | Avg Total Loss: 3.2277e+05 | Val Data Loss: 3.2382e+05 | (Data=3.331e+05, PDE=1.198e+19, BC=3.258e+07, IC=7.719e+04) | w_data=1.0e+00, w_pde=4.0e-20, w_bc=6.4e-07, w_ic=6.8e-05
+2025-11-14 19:04:02,612 - MainThread - INFO - [200_2] Epoch 200/300 | Avg Total Loss: 3.2368e+05 | Val Data Loss: 3.2375e+05 | (Data=3.375e+05, PDE=1.114e+19, BC=3.256e+07, IC=7.715e+04) | w_data=1.0e+00, w_pde=4.4e-20, w_bc=6.7e-07, w_ic=6.7e-05
+2025-11-14 19:10:09,075 - MainThread - INFO - [200_2] Epoch 210/300 | Avg Total Loss: 3.2312e+05 | Val Data Loss: 3.2368e+05 | (Data=3.222e+05, PDE=1.255e+19, BC=3.255e+07, IC=7.712e+04) | w_data=1.0e+00, w_pde=4.9e-20, w_bc=7.0e-07, w_ic=6.5e-05
+2025-11-14 19:16:16,310 - MainThread - INFO - [200_2] Epoch 220/300 | Avg Total Loss: 3.2363e+05 | Val Data Loss: 3.2361e+05 | (Data=3.239e+05, PDE=1.334e+19, BC=3.253e+07, IC=7.708e+04) | w_data=1.0e+00, w_pde=5.4e-20, w_bc=7.4e-07, w_ic=6.3e-05
+2025-11-14 19:22:24,312 - MainThread - INFO - [200_2] Epoch 230/300 | Avg Total Loss: 3.2297e+05 | Val Data Loss: 3.2354e+05 | (Data=3.306e+05, PDE=1.189e+19, BC=3.252e+07, IC=7.704e+04) | w_data=1.0e+00, w_pde=5.9e-20, w_bc=7.7e-07, w_ic=6.2e-05
+2025-11-14 19:28:29,280 - MainThread - INFO - [200_2] Epoch 240/300 | Avg Total Loss: 3.2261e+05 | Val Data Loss: 3.2347e+05 | (Data=3.226e+05, PDE=1.242e+19, BC=3.250e+07, IC=7.700e+04) | w_data=1.0e+00, w_pde=6.4e-20, w_bc=8.0e-07, w_ic=6.0e-05
+2025-11-14 19:34:34,037 - MainThread - INFO - [200_2] Epoch 250/300 | Avg Total Loss: 3.2243e+05 | Val Data Loss: 3.2340e+05 | (Data=3.273e+05, PDE=1.334e+19, BC=3.249e+07, IC=7.697e+04) | w_data=1.0e+00, w_pde=6.9e-20, w_bc=8.3e-07, w_ic=5.8e-05
+2025-11-14 19:40:38,816 - MainThread - INFO - [200_2] Epoch 260/300 | Avg Total Loss: 3.2296e+05 | Val Data Loss: 3.2333e+05 | (Data=3.150e+05, PDE=1.370e+19, BC=3.247e+07, IC=7.693e+04) | w_data=1.0e+00, w_pde=7.5e-20, w_bc=8.7e-07, w_ic=5.7e-05
+2025-11-14 19:46:48,943 - MainThread - INFO - [200_2] Epoch 270/300 | Avg Total Loss: 3.2332e+05 | Val Data Loss: 3.2326e+05 | (Data=3.272e+05, PDE=1.206e+19, BC=3.246e+07, IC=7.689e+04) | w_data=1.0e+00, w_pde=8.1e-20, w_bc=9.0e-07, w_ic=5.5e-05
+2025-11-14 19:52:54,427 - MainThread - INFO - [200_2] Epoch 280/300 | Avg Total Loss: 3.2403e+05 | Val Data Loss: 3.2319e+05 | (Data=3.202e+05, PDE=1.264e+19, BC=3.244e+07, IC=7.686e+04) | w_data=1.0e+00, w_pde=8.7e-20, w_bc=9.3e-07, w_ic=5.3e-05
+2025-11-14 19:58:58,432 - MainThread - INFO - [200_2] Epoch 290/300 | Avg Total Loss: 3.2265e+05 | Val Data Loss: 3.2312e+05 | (Data=3.293e+05, PDE=1.220e+19, BC=3.243e+07, IC=7.682e+04) | w_data=1.0e+00, w_pde=9.3e-20, w_bc=9.7e-07, w_ic=5.2e-05
+2025-11-14 20:05:04,118 - MainThread - INFO - [200_2] Epoch 300/300 | Avg Total Loss: 3.2315e+05 | Val Data Loss: 3.2305e+05 | (Data=3.294e+05, PDE=1.286e+19, BC=3.241e+07, IC=7.678e+04) | w_data=1.0e+00, w_pde=1.0e-19, w_bc=1.0e-06, w_ic=5.0e-05
+2025-11-14 20:05:04,128 - MainThread - WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+2025-11-14 20:05:04,143 - MainThread - INFO - Model saved: model_200_2.h5
+2025-11-14 20:05:04,143 - MainThread - INFO - Input scaler saved: input_scaler_200_2.npz
+2025-11-14 20:05:04,366 - MainThread - INFO - Training plot saved for 200_2
+2025-11-14 20:05:04,366 - MainThread - INFO - Starting evaluation for 200_2
+2025-11-14 20:05:04,648 - MainThread - INFO - 
+=== Training Evaluation Metrics for experiment 200_2 ===
+2025-11-14 20:05:04,648 - MainThread - INFO - RMSE: 568.0142
+2025-11-14 20:05:04,648 - MainThread - INFO - MAE: 518.1457
+2025-11-14 20:05:04,648 - MainThread - INFO - R²: -4.9566
+2025-11-14 20:05:04,648 - MainThread - INFO - Pearson Correlation: 0.0049
+2025-11-14 20:05:59,791 - MainThread - INFO - 
+=== Validation Evaluation Metrics for experiment 200_2 ===
+2025-11-14 20:05:59,791 - MainThread - INFO - RMSE: 568.3766
+2025-11-14 20:05:59,791 - MainThread - INFO - MAE: 518.4357
+2025-11-14 20:05:59,791 - MainThread - INFO - R²: -4.9520
+2025-11-14 20:05:59,791 - MainThread - INFO - Pearson Correlation: 0.0045
+2025-11-14 20:06:17,426 - MainThread - INFO - 
+=== Test Evaluation Metrics for experiment 200_2 ===
+2025-11-14 20:06:17,426 - MainThread - INFO - RMSE: 592.6800
+2025-11-14 20:06:17,426 - MainThread - INFO - MAE: 546.3829
+2025-11-14 20:06:17,426 - MainThread - INFO - R²: -5.6610
+2025-11-14 20:06:17,426 - MainThread - INFO - Pearson Correlation: 0.0064
+2025-11-14 20:08:14,575 - MainThread - INFO - Completed training and evaluation for 200_2
+2025-11-14 20:08:14,575 - MainThread - INFO - Test Metrics - RMSE: 592.6800, R²: -5.6610
+2025-11-14 20:08:14,575 - MainThread - INFO - Completed experiment 200_2
+------------------------------------------------------------
+2025-11-14 20:08:14,575 - MainThread - INFO - 
+=== Training Complete ===
+2025-11-14 20:08:14,576 - MainThread - INFO - Trained 1 models successfully!
+2025-11-14 20:08:14,576 - MainThread - INFO - All models saved in 'trained_models_PINNS/' directory
+2025-11-14 20:08:14,576 - MainThread - INFO - Evaluation metrics saved in 'evaluation_results_PINNS/' directory
+2025-11-14 20:08:14,576 - MainThread - INFO - Training plots saved in 'training_plots_PINNS/' directory
+2025-11-14 20:08:14,576 - MainThread - INFO - === Summary of Test Results Across All Experiments ===
+2025-11-14 20:08:14,576 - MainThread - INFO - Average RMSE: 592.6800 ± nan
+2025-11-14 20:08:14,577 - MainThread - INFO - Average MAE: 546.3829 ± nan
+2025-11-14 20:08:14,577 - MainThread - INFO - Average R²: -5.6610 ± nan
+2025-11-14 20:08:14,577 - MainThread - INFO - Average Pearson Correlation: 0.0064 ± nan
+2025-11-14 20:08:14,577 - MainThread - INFO - 
+Best performing experiment (highest R²): 200_2 (R² = -5.6610)
+2025-11-14 20:08:14,577 - MainThread - INFO - Worst performing experiment (lowest R²): 200_2 (R² = -5.6610)
+2025-11-14 20:08:14,579 - MainThread - INFO - Summary results saved to 'evaluation_results_PINNS/all_experiments_test_summary.csv'
+2025-11-14 20:08:15,272 - MainThread - INFO - Metrics distribution plots saved to 'evaluation_results_PINNS/metrics_distribution_summary.png'

@@ -1,0 +1,164 @@
+2025-11-11 11:44:41,422 - MainThread - INFO - ✓ GPU memory growth enabled for 1 device(s)
+2025-11-11 11:44:41,422 - MainThread - INFO - 
+=== Experiment 1/1: 200_2 ===
+2025-11-11 11:44:41,599 - MainThread - INFO - Loaded data shape: X=(9799368, 4), y=(9799368, 1)
+2025-11-11 11:44:42,432 - MainThread - INFO - Final splits - Train: 2808323, Val: 702081, Test: 6288964
+2025-11-11 11:44:43,458 - MainThread - INFO - Model parameters: {'input_dim': 4, 'output_dim': 1, 'layer_sizes': [256, 256, 128, 128, 64, 64, 1], 'activation': 'relu', 'learning_rate': 0.001, 'w_data': 1.0, 'w_pde': 0, 'w_bc': 0, 'w_ic': 0}
+2025-11-11 11:44:43,459 - MainThread - INFO - Training parameters: {'epochs': 200, 'batch_size': 262144, 'learning_rate': 0.0001, 'L_data_threshold': 0.5, 'L_ic_threshold': 10, 'L_bc_threshold': 1000.0, 'w_data_new': 0.01, 'w_pde_new': 1e-14, 'w_bc_new': 1e-05, 'w_ic_new': 0.01, 'early_stopping_patience': 50, 'lr_reduce_patience': 25}
+2025-11-11 11:44:43,459 - MainThread - INFO - Starting training for experiment: 200_2
+2025-11-11 11:44:43,459 - MainThread - INFO - Configuration - Epochs: 200, Data Batch Size: 262144, Physics Batch Size: 262144
+2025-11-11 11:44:44,074 - MainThread - INFO - Physics parameters loaded - V: 10.1V, I: 70A, Efficiency: 0.7
+2025-11-11 11:44:44,278 - MainThread - INFO - Dataset sizes - Train: 2808323, Validation: 702081, Test: 6288964
+2025-11-11 11:44:45,085 - MainThread - WARNING - Calling GradientTape.gradient on a persistent tape inside its context is significantly less efficient than calling it outside the context (it causes the gradient ops to be recorded on the tape, leading to increased CPU and memory usage). Only call GradientTape.gradient inside the context if you actually want to trace the gradient in order to compute higher order derivatives.
+2025-11-11 11:44:48,645 - MainThread - INFO - [200_2] Epoch 1/200 | Avg Loss: 9.8255e-01 (Data=9.482e-01, PDE=2.350e+14, BC=2.137e+05, IC=6.264e+02)
+2025-11-11 11:45:11,883 - MainThread - INFO - [200_2] Epoch 10/200 | Avg Loss: 6.7951e-01 (Data=6.705e-01, PDE=3.048e+14, BC=2.059e+05, IC=6.248e+02)
+2025-11-11 11:45:37,603 - MainThread - INFO - [200_2] Epoch 20/200 | Avg Loss: 4.9743e-01 (Data=4.731e-01, PDE=5.636e+14, BC=2.048e+05, IC=6.249e+02)
+2025-11-11 11:46:03,286 - MainThread - INFO - [200_2] Epoch 30/200 | Avg Loss: 3.6068e+00 (Data=5.543e-01, PDE=5.902e+14, BC=2.007e+05, IC=6.114e+02)
+2025-11-11 11:46:03,410 - MainThread - INFO - Adjusting weights at epoch 30: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:46:05,035 - MainThread - INFO - Adjusting weights at epoch 30: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:46:05,277 - MainThread - INFO - Adjusting weights at epoch 30: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:46:05,500 - MainThread - INFO - Adjusting weights at epoch 30: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:46:05,726 - MainThread - INFO - Adjusting weights at epoch 30: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:46:28,984 - MainThread - INFO - [200_2] Epoch 40/200 | Avg Loss: 4.0981e+00 (Data=4.224e-01, PDE=6.567e+14, BC=2.009e+05, IC=6.177e+02)
+2025-11-11 11:46:29,107 - MainThread - INFO - Adjusting weights at epoch 40: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:46:29,340 - MainThread - INFO - Adjusting weights at epoch 40: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:46:29,573 - MainThread - INFO - Adjusting weights at epoch 40: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:46:29,805 - MainThread - INFO - Adjusting weights at epoch 40: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:46:30,037 - MainThread - INFO - Adjusting weights at epoch 40: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:46:30,268 - MainThread - INFO - Adjusting weights at epoch 40: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:46:30,500 - MainThread - INFO - Adjusting weights at epoch 40: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:46:30,733 - MainThread - INFO - Adjusting weights at epoch 40: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:46:30,965 - MainThread - INFO - Adjusting weights at epoch 40: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:46:54,716 - MainThread - INFO - [200_2] Epoch 50/200 | Avg Loss: 3.5954e+00 (Data=4.536e-01, PDE=6.102e+14, BC=2.009e+05, IC=6.163e+02)
+2025-11-11 11:46:54,839 - MainThread - INFO - Adjusting weights at epoch 50: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:46:55,071 - MainThread - INFO - Adjusting weights at epoch 50: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:46:55,303 - MainThread - INFO - Adjusting weights at epoch 50: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:46:55,535 - MainThread - INFO - Adjusting weights at epoch 50: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:46:55,768 - MainThread - INFO - Adjusting weights at epoch 50: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:46:56,000 - MainThread - INFO - Adjusting weights at epoch 50: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:46:56,232 - MainThread - INFO - Adjusting weights at epoch 50: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:47:20,453 - MainThread - INFO - [200_2] Epoch 60/200 | Avg Loss: 3.0726e+00 (Data=4.614e-01, PDE=5.891e+14, BC=1.997e+05, IC=6.132e+02)
+2025-11-11 11:47:20,572 - MainThread - INFO - Adjusting weights at epoch 60: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:47:20,804 - MainThread - INFO - Adjusting weights at epoch 60: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:47:21,036 - MainThread - INFO - Adjusting weights at epoch 60: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:47:21,269 - MainThread - INFO - Adjusting weights at epoch 60: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:47:21,502 - MainThread - INFO - Adjusting weights at epoch 60: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:47:21,734 - MainThread - INFO - Adjusting weights at epoch 60: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:47:21,967 - MainThread - INFO - Adjusting weights at epoch 60: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:47:22,663 - MainThread - INFO - Adjusting weights at epoch 60: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:47:22,888 - MainThread - INFO - Adjusting weights at epoch 60: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:47:46,183 - MainThread - INFO - [200_2] Epoch 70/200 | Avg Loss: 4.5972e+00 (Data=4.602e-01, PDE=6.760e+14, BC=1.975e+05, IC=6.081e+02)
+2025-11-11 11:47:46,307 - MainThread - INFO - Adjusting weights at epoch 70: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:47:46,540 - MainThread - INFO - Adjusting weights at epoch 70: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:47:46,772 - MainThread - INFO - Adjusting weights at epoch 70: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:47:48,165 - MainThread - INFO - Adjusting weights at epoch 70: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:47:48,398 - MainThread - INFO - Adjusting weights at epoch 70: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:47:48,623 - MainThread - INFO - Adjusting weights at epoch 70: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:48:11,934 - MainThread - INFO - [200_2] Epoch 80/200 | Avg Loss: 4.0635e+00 (Data=4.695e-01, PDE=8.288e+14, BC=1.969e+05, IC=6.066e+02)
+2025-11-11 11:48:12,054 - MainThread - INFO - Adjusting weights at epoch 80: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:48:12,286 - MainThread - INFO - Adjusting weights at epoch 80: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:48:13,446 - MainThread - INFO - Adjusting weights at epoch 80: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:48:13,677 - MainThread - INFO - Adjusting weights at epoch 80: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:48:13,910 - MainThread - INFO - Adjusting weights at epoch 80: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:48:14,142 - MainThread - INFO - Adjusting weights at epoch 80: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:48:14,367 - MainThread - INFO - Adjusting weights at epoch 80: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:48:37,880 - MainThread - INFO - [200_2] Epoch 90/200 | Avg Loss: 4.0639e+00 (Data=4.249e-01, PDE=8.266e+14, BC=1.975e+05, IC=6.089e+02)
+2025-11-11 11:48:38,003 - MainThread - INFO - Adjusting weights at epoch 90: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:48:38,237 - MainThread - INFO - Adjusting weights at epoch 90: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:48:38,468 - MainThread - INFO - Adjusting weights at epoch 90: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:48:38,699 - MainThread - INFO - Adjusting weights at epoch 90: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:48:38,932 - MainThread - INFO - Adjusting weights at epoch 90: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:48:39,164 - MainThread - INFO - Adjusting weights at epoch 90: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:48:39,397 - MainThread - INFO - Adjusting weights at epoch 90: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:49:03,577 - MainThread - INFO - [200_2] Epoch 100/200 | Avg Loss: 4.0686e+00 (Data=4.856e-01, PDE=8.575e+14, BC=1.985e+05, IC=6.121e+02)
+2025-11-11 11:49:03,696 - MainThread - INFO - Adjusting weights at epoch 100: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:49:03,927 - MainThread - INFO - Adjusting weights at epoch 100: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:49:04,159 - MainThread - INFO - Adjusting weights at epoch 100: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:49:05,319 - MainThread - INFO - Adjusting weights at epoch 100: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:49:05,551 - MainThread - INFO - Adjusting weights at epoch 100: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:49:05,784 - MainThread - INFO - Adjusting weights at epoch 100: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:49:06,010 - MainThread - INFO - Adjusting weights at epoch 100: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:49:29,285 - MainThread - INFO - [200_2] Epoch 110/200 | Avg Loss: 5.5926e+00 (Data=4.743e-01, PDE=9.754e+14, BC=1.956e+05, IC=6.067e+02)
+2025-11-11 11:49:29,405 - MainThread - INFO - Adjusting weights at epoch 110: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:49:29,637 - MainThread - INFO - Adjusting weights at epoch 110: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:49:29,869 - MainThread - INFO - Adjusting weights at epoch 110: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:49:31,494 - MainThread - INFO - Adjusting weights at epoch 110: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:49:31,720 - MainThread - INFO - Adjusting weights at epoch 110: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:49:55,304 - MainThread - INFO - [200_2] Epoch 120/200 | Avg Loss: 5.5848e+00 (Data=5.671e-01, PDE=1.131e+15, BC=1.926e+05, IC=5.994e+02)
+2025-11-11 11:49:56,591 - MainThread - INFO - Adjusting weights at epoch 120: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:49:56,826 - MainThread - INFO - Adjusting weights at epoch 120: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:49:57,060 - MainThread - INFO - Adjusting weights at epoch 120: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:49:57,294 - MainThread - INFO - Adjusting weights at epoch 120: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:49:57,529 - MainThread - INFO - Adjusting weights at epoch 120: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:49:57,755 - MainThread - INFO - Adjusting weights at epoch 120: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:50:21,148 - MainThread - INFO - [200_2] Epoch 130/200 | Avg Loss: 4.0556e+00 (Data=4.949e-01, PDE=1.161e+15, BC=1.943e+05, IC=6.056e+02)
+2025-11-11 11:50:21,501 - MainThread - INFO - Adjusting weights at epoch 130: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:50:21,734 - MainThread - INFO - Adjusting weights at epoch 130: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:50:21,966 - MainThread - INFO - Adjusting weights at epoch 130: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:50:22,199 - MainThread - INFO - Adjusting weights at epoch 130: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:50:22,432 - MainThread - INFO - Adjusting weights at epoch 130: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:50:23,586 - MainThread - INFO - Adjusting weights at epoch 130: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:50:47,153 - MainThread - INFO - [200_2] Epoch 140/200 | Avg Loss: 3.5395e+00 (Data=4.822e-01, PDE=1.226e+15, BC=1.944e+05, IC=6.036e+02)
+2025-11-11 11:50:47,274 - MainThread - INFO - Adjusting weights at epoch 140: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:50:47,506 - MainThread - INFO - Adjusting weights at epoch 140: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:50:48,668 - MainThread - INFO - Adjusting weights at epoch 140: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:50:48,900 - MainThread - INFO - Adjusting weights at epoch 140: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:50:49,133 - MainThread - INFO - Adjusting weights at epoch 140: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:50:49,365 - MainThread - INFO - Adjusting weights at epoch 140: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:50:49,591 - MainThread - INFO - Adjusting weights at epoch 140: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:51:12,961 - MainThread - INFO - [200_2] Epoch 150/200 | Avg Loss: 3.0533e+00 (Data=4.599e-01, PDE=1.283e+15, BC=1.949e+05, IC=6.038e+02)
+2025-11-11 11:51:13,082 - MainThread - INFO - Adjusting weights at epoch 150: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:51:13,316 - MainThread - INFO - Adjusting weights at epoch 150: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:51:13,549 - MainThread - INFO - Adjusting weights at epoch 150: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:51:13,783 - MainThread - INFO - Adjusting weights at epoch 150: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:51:14,017 - MainThread - INFO - Adjusting weights at epoch 150: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:51:14,248 - MainThread - INFO - Adjusting weights at epoch 150: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:51:14,482 - MainThread - INFO - Adjusting weights at epoch 150: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:51:14,715 - MainThread - INFO - Adjusting weights at epoch 150: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:51:14,948 - MainThread - INFO - Adjusting weights at epoch 150: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:51:15,180 - MainThread - INFO - Adjusting weights at epoch 150: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:51:38,777 - MainThread - INFO - [200_2] Epoch 160/200 | Avg Loss: 5.0805e+00 (Data=4.188e-01, PDE=1.072e+15, BC=1.961e+05, IC=6.084e+02)
+2025-11-11 11:51:38,901 - MainThread - INFO - Adjusting weights at epoch 160: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:51:39,135 - MainThread - INFO - Adjusting weights at epoch 160: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:51:39,370 - MainThread - INFO - Adjusting weights at epoch 160: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:51:39,602 - MainThread - INFO - Adjusting weights at epoch 160: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:51:39,835 - MainThread - INFO - Adjusting weights at epoch 160: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:51:41,228 - MainThread - INFO - Adjusting weights at epoch 160: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:52:04,904 - MainThread - INFO - [200_2] Epoch 170/200 | Avg Loss: 3.5464e+00 (Data=4.809e-01, PDE=1.246e+15, BC=1.957e+05, IC=6.075e+02)
+2025-11-11 11:52:05,258 - MainThread - INFO - Adjusting weights at epoch 170: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:52:05,490 - MainThread - INFO - Adjusting weights at epoch 170: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:52:05,722 - MainThread - INFO - Adjusting weights at epoch 170: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:52:05,954 - MainThread - INFO - Adjusting weights at epoch 170: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:52:06,185 - MainThread - INFO - Adjusting weights at epoch 170: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:52:06,417 - MainThread - INFO - Adjusting weights at epoch 170: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:52:30,571 - MainThread - INFO - [200_2] Epoch 180/200 | Avg Loss: 6.0820e+00 (Data=5.514e-01, PDE=1.552e+15, BC=1.932e+05, IC=5.992e+02)
+2025-11-11 11:52:32,311 - MainThread - INFO - Adjusting weights at epoch 180: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:52:32,542 - MainThread - INFO - Adjusting weights at epoch 180: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:52:32,774 - MainThread - INFO - Adjusting weights at epoch 180: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:52:32,999 - MainThread - INFO - Adjusting weights at epoch 180: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:52:56,233 - MainThread - INFO - [200_2] Epoch 190/200 | Avg Loss: 4.5771e+00 (Data=5.440e-01, PDE=1.558e+15, BC=1.917e+05, IC=5.998e+02)
+2025-11-11 11:52:56,816 - MainThread - INFO - Adjusting weights at epoch 190: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:52:57,048 - MainThread - INFO - Adjusting weights at epoch 190: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:52:57,280 - MainThread - INFO - Adjusting weights at epoch 190: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:52:57,512 - MainThread - INFO - Adjusting weights at epoch 190: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:52:57,744 - MainThread - INFO - Adjusting weights at epoch 190: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:52:57,975 - MainThread - INFO - Adjusting weights at epoch 190: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:52:58,206 - MainThread - INFO - Adjusting weights at epoch 190: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:52:58,438 - MainThread - INFO - Adjusting weights at epoch 190: w_data=0.01, w_pde=0, w_bc=0, w_ic=0.01
+2025-11-11 11:53:21,905 - MainThread - INFO - [200_2] Epoch 200/200 | Avg Loss: 5.5643e+00 (Data=5.522e-01, PDE=2.092e+15, BC=1.944e+05, IC=6.009e+02)
+2025-11-11 11:53:21,905 - MainThread - WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+2025-11-11 11:53:21,920 - MainThread - INFO - Model saved: model_200_2.h5
+2025-11-11 11:53:22,135 - MainThread - INFO - Training plot saved for 200_2
+2025-11-11 11:53:22,135 - MainThread - INFO - Starting evaluation for 200_2
+2025-11-11 11:58:38,616 - MainThread - INFO - 
+=== Training Evaluation Metrics for experiment 200_2 ===
+2025-11-11 11:58:38,616 - MainThread - INFO - RMSE: 173.3641
+2025-11-11 11:58:38,616 - MainThread - INFO - MAE: 154.8982
+2025-11-11 11:58:38,616 - MainThread - INFO - R²: 0.4451
+2025-11-11 11:58:38,616 - MainThread - INFO - Pearson Correlation: 0.8372
+2025-11-11 12:00:28,679 - MainThread - INFO - 
+=== Validation Evaluation Metrics for experiment 200_2 ===
+2025-11-11 12:00:28,679 - MainThread - INFO - RMSE: 173.4716
+2025-11-11 12:00:28,679 - MainThread - INFO - MAE: 154.9765
+2025-11-11 12:00:28,679 - MainThread - INFO - R²: 0.4456
+2025-11-11 12:00:28,679 - MainThread - INFO - Pearson Correlation: 0.8368

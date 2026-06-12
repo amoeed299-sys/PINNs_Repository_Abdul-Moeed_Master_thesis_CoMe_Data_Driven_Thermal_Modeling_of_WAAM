@@ -1,0 +1,3 @@
+2025-11-11 22:39:01,351 - MainThread - INFO - Enabled memory growth on 1 GPU(s)
+2025-11-11 22:39:01,351 - MainThread - INFO - === Experiment 1/1: 200_2 ===
+2025-11-11 22:39:02,906 - MainThread - INFO - Splits - Train: 2808323, Val: 702081, Test: 6288964

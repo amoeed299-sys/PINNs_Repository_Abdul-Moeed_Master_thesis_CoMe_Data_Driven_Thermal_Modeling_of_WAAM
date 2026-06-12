@@ -1,0 +1,18 @@
+2025-11-14 16:41:23,385 - MainThread - INFO - ✓ GPU memory growth enabled for 1 device(s)
+2025-11-14 16:41:23,385 - MainThread - INFO - 
+=== Experiment 1/1: 200_2 ===
+2025-11-14 16:41:23,616 - MainThread - INFO - Loaded data shape: X=(9799368, 4), y=(9799368, 1)
+2025-11-14 16:41:24,464 - MainThread - INFO - Final splits - Train: 2808323, Val: 702081, Test: 6288964
+2025-11-14 16:41:24,648 - MainThread - INFO - Input scaler for 200_2 - mins: [0.         0.0149951  0.16491048 0.004     ], scales: [1.0038600e+03 2.0000981e-01 5.1790476e-03 3.2060756e-03]
+2025-11-14 16:41:25,683 - MainThread - INFO - Model parameters: {'input_dim': 4, 'output_dim': 1, 'layer_sizes': [128, 128, 64, 64, 32, 32, 1], 'activation': 'tanh', 'w_data': 0.001, 'w_pde': 1e-17, 'w_bc': 1e-06, 'w_ic': 1e-07}
+2025-11-14 16:41:25,683 - MainThread - INFO - Training parameters: {'epochs': 300, 'batch_size': 4096, 'learning_rate': 5e-05, 'early_stopping_patience': 40, 'lr_reduce_patience': 20, 'lr_reduce_factor': 0.5, 'min_lr': 1e-06, 'pde_warmup_epochs': 50, 'max_grad_norm': 1.0, 'bc_batch_size': 2048, 'ic_batch_size': 2048, 'max_batches_per_epoch': 200}
+2025-11-14 16:41:25,683 - MainThread - INFO - Starting training for experiment: 200_2
+2025-11-14 16:41:25,683 - MainThread - INFO - Configuration - Epochs: 300, Data Batch Size: 4096, Physics Batch Size: 4096
+2025-11-14 16:41:25,685 - MainThread - INFO - Physics parameters loaded - V: 10.1V, I: 70A, Efficiency: 0.7
+2025-11-14 16:41:25,890 - MainThread - INFO - Dataset sizes - Train: 2808323, Validation: 702081, Test: 6288964
+2025-11-14 16:41:26,476 - MainThread - WARNING - Calling GradientTape.gradient on a persistent tape inside its context is significantly less efficient than calling it outside the context (it causes the gradient ops to be recorded on the tape, leading to increased CPU and memory usage). Only call GradientTape.gradient inside the context if you actually want to trace the gradient in order to compute higher order derivatives.
+2025-11-14 16:42:05,852 - MainThread - INFO - [200_2] Epoch 1/300 | Avg Total Loss: 3.4281e-01 | Val Data Loss: 3.4124e+05 | (Data=3.379e-01, PDE=1.241e-17, BC=1.307e+04, IC=8.662e+00) | w_data=1.0e+00, w_pde=0.0e+00, w_bc=0.0e+00, w_ic=0.0e+00
+2025-11-14 16:47:37,376 - MainThread - INFO - [200_2] Epoch 10/300 | Avg Total Loss: 3.3501e-01 | Val Data Loss: 3.3494e+05 | (Data=3.296e-01, PDE=1.290e-17, BC=3.356e+03, IC=8.320e+00) | w_data=1.0e+00, w_pde=0.0e+00, w_bc=0.0e+00, w_ic=0.0e+00
+2025-11-14 16:53:46,300 - MainThread - INFO - [200_2] Epoch 20/300 | Avg Total Loss: 3.3102e-01 | Val Data Loss: 3.3131e+05 | (Data=3.281e-01, PDE=1.224e-17, BC=3.401e+03, IC=8.123e+00) | w_data=1.0e+00, w_pde=0.0e+00, w_bc=0.0e+00, w_ic=0.0e+00
+2025-11-14 16:53:46,302 - MainThread - INFO - [200_2] Reducing learning rate from 5.00e-05 to 2.50e-05 after 20 epochs without sufficient improvement.
+2025-11-14 16:59:53,947 - MainThread - INFO - [200_2] Epoch 30/300 | Avg Total Loss: 3.2949e-01 | Val Data Loss: 3.2956e+05 | (Data=3.333e-01, PDE=1.202e-17, BC=3.376e+03, IC=8.028e+00) | w_data=1.0e+00, w_pde=0.0e+00, w_bc=0.0e+00, w_ic=0.0e+00

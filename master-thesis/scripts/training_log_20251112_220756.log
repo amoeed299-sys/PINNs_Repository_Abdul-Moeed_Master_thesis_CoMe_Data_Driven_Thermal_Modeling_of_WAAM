@@ -1,0 +1,10 @@
+2025-11-12 22:07:56,523 - MainThread - INFO - ✓ GPU memory growth enabled for 1 device(s)
+2025-11-12 22:07:56,523 - MainThread - INFO - 
+=== Experiment 1/1: 200_2 ===
+2025-11-12 22:07:56,780 - MainThread - INFO - Loaded data shape: X=(9799368, 4), y=(9799368, 1)
+2025-11-12 22:07:57,542 - MainThread - INFO - Final splits - Train: 2808323, Val: 702081, Test: 6288964
+2025-11-12 22:07:58,573 - MainThread - INFO - Model parameters: {'input_dim': 4, 'output_dim': 1, 'layer_sizes': [256, 256, 128, 128, 64, 64, 1], 'activation': 'relu', 'learning_rate': 0.001, 'w_data': 1.0, 'w_pde': 1e-14, 'w_bc': 1e-05, 'w_ic': 0.01}
+2025-11-12 22:07:58,574 - MainThread - INFO - Training parameters: {'epochs': 500, 'batch_size': 262144, 'learning_rate': 0.0001, 'L_data_threshold': 0.5, 'w_data_new': 0.01, 'w_pde_new': 1e-14, 'early_stopping_patience': 50, 'lr_reduce_patience': 25}
+2025-11-12 22:07:58,574 - MainThread - INFO - Starting training for experiment: 200_2
+2025-11-12 22:07:58,574 - MainThread - INFO - Configuration - Epochs: 500, Data Batch Size: 262144, Physics Batch Size: 262144
+2025-11-12 22:07:59,128 - MainThread - INFO - Physics parameters loaded - V: 10.1V, I: 70A, Efficiency: 0.7

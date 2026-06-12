@@ -1,0 +1,4 @@
+2025-11-11 22:34:13,451 - MainThread - INFO - Enabled memory growth on 1 GPU(s)
+2025-11-11 22:34:13,452 - MainThread - INFO - === Experiment 1/1: 200_2 ===
+2025-11-11 22:34:13,644 - MainThread - ERROR - Could not load data for 200_2: No module named 'pyarrow'
+2025-11-11 22:34:13,644 - MainThread - INFO - Training script finished.

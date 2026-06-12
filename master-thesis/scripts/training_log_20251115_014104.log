@@ -1,0 +1,7 @@
+2025-11-15 01:41:05,173 - MainThread - INFO - ✓ GPU memory growth enabled for 1 device(s)
+2025-11-15 01:41:05,174 - MainThread - INFO - 
+=== Experiment 1/1: 200_2 ===
+2025-11-15 01:41:05,421 - MainThread - INFO - Loaded data shape: X=(9799368, 4), y=(9799368, 1)
+2025-11-15 01:41:06,301 - MainThread - INFO - Final splits - Train: 2808323, Val: 702081, Test: 6288964
+2025-11-15 01:41:06,484 - MainThread - INFO - Input scaler for 200_2 - mins: [0.         0.0149951  0.16491048 0.004     ], scales: [1.0038600e+03 2.0000981e-01 5.1790476e-03 3.2060756e-03]
+2025-11-15 01:41:07,611 - MainThread - INFO - [200_2] Starting Stage 1 (data-only) training for 50 epochs...

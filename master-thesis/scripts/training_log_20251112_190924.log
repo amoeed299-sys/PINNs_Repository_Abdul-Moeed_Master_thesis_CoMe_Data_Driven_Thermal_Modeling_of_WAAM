@@ -1,0 +1,4 @@
+2025-11-12 19:09:24,532 - INFO - ✓ GPU memory growth enabled for 1 device(s)
+2025-11-12 19:09:24,533 - INFO - 
+=== Experiment 1/1: 200_2 ===
+2025-11-12 19:09:24,733 - INFO - Loaded data shape: X=(9799368, 4), y=(9799368, 1)

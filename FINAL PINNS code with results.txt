@@ -1,0 +1,987 @@
+# Surrogate Model Training - Clean PINN Version (Option A: ReLU, no output scaling)
+# ------------------------------------------------------------------------------
+# - Two-stage training: data-only → PINN fine-tune
+# - Inputs scaled (min-max) for the network
+# - Outputs (temperature) kept in Kelvin (no scaling)
+# - Physics (PDE/BC/IC) in physical coordinates
+# - PDE points sampled from full space–time domain (train+val+test)
+# - Fixed GradientTape usage (no persistent-tape errors)
+# - Uses RANDOM train/val/test split (same as surrogate model script)
+# - Adaptive loss weighting based on gradient norms (GradNorm-style)
+#
+
+#   1) PINN stage: plot validation loss together with total + data
+#      (and keep physics components plot as well)
+#   2) Temp vs Time plots in the SAME style as the NN post-plot:
+#      - Use TEST split only
+#      - Group by time and plot mean temperature:
+#        Original (test mean) vs Predicted (test mean)
+#      - Save per DoE (25 plots)
+# ------------------------------------------------------------------------------
+
+import os
+from pathlib import Path
+import yaml
+import polars as pl
+import numpy as np
+import pandas as pd
+import tensorflow as tf
+
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Dense, Dropout, Input
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras import regularizers
+
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+from scipy.stats import pearsonr
+
+import matplotlib.pyplot as plt
+import csv
+import logging
+from threading import Lock
+from datetime import datetime
+
+# -------------------------------------------------------------------------
+# Logging
+# -------------------------------------------------------------------------
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(threadName)s - %(levelname)s - %(message)s",
+    handlers=[
+        logging.FileHandler(f"training_log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"),
+        logging.StreamHandler(),
+    ],
+)
+logger = logging.getLogger(__name__)
+logger.info_lock = Lock()
+
+# -------------------------------------------------------------------------
+# Global config (for plotting labels only)
+# -------------------------------------------------------------------------
+model_parameters = {
+    "input_dim": 4,
+    "output_dim": 1,
+    "layer_sizes": [128, 128, 64, 64, 32, 16, 1],
+    "activation": "relu",
+    "w_data": 1e-3,  # text label only
+    "w_pde": 1e-10,
+    "w_bc": 1e-8,
+    "w_ic": 1e-4,
+}
+
+training_parameters = {
+    "epochs_data_only": 100,
+    "epochs_pinn": 250,
+    "batch_size": 8192,
+    "learning_rate": 5e-5,
+    "early_stopping_patience": 40,
+    "lr_reduce_patience": 20,
+    "lr_reduce_factor": 0.5,
+    "min_lr": 1e-6,
+    "pde_warmup_epochs": 20,
+    "max_grad_norm": 1.0,
+    "bc_batch_size": 2048,
+    "ic_batch_size": 2048,
+    "max_batches_per_epoch": 60,
+    "physics_batch_size": 2048,
+}
+
+# base physics weights (used as base values)
+W_DATA_BASE = 1.0
+W_PDE_BASE = 1e-6
+W_BC_BASE = 1e-5
+W_IC_BASE = 1e-2
+
+def scheduled_weights(epoch, total_epochs):
+    alpha = epoch / max(1, (total_epochs - 1))
+    alpha = max(0.0, min(1.0, alpha))
+
+    w_data = W_DATA_BASE
+    w_pde = W_PDE_BASE * (0.1 + 0.9 * alpha**2)
+    w_bc  = W_BC_BASE  * (0.1 + 0.9 * alpha)
+    w_ic  = W_IC_BASE
+    return w_data, w_pde, w_bc, w_ic
+
+# -------------------------------------------------------------------------
+# Paths / DoE
+# -------------------------------------------------------------------------
+try:
+    SCRIPT_DIR = Path(__file__).parent.resolve()
+except NameError:
+    SCRIPT_DIR = Path.cwd().resolve()
+
+YAML_DIR = SCRIPT_DIR / "../data/pre_processed"
+PARQUET_DIR = SCRIPT_DIR / "../data/pre_processed"
+
+v_robot_list = [200, 400, 600, 800, 1000]  # mm/min
+wire_feed_rate = [2, 4, 6, 8, 10]          # m/min
+doe = [(v_r, v_w) for v_r in v_robot_list for v_w in wire_feed_rate]
+doe_str = [f"{v_r}_{v_w}" for v_r, v_w in doe]
+
+# -------------------------------------------------------------------------
+# Load experiment parameters from YAML
+# -------------------------------------------------------------------------
+experiment_parameters = {}
+for exp in doe_str:
+    yaml_path = YAML_DIR / f"experiment_{exp}.yaml"
+    if yaml_path.exists():
+        with open(yaml_path, "r") as f:
+            experiment_parameters[exp] = yaml.safe_load(f)
+    else:
+        logger.info(f"Warning: YAML file not found for {exp}: {yaml_path}")
+
+# -------------------------------------------------------------------------
+# Data loading
+# -------------------------------------------------------------------------
+def load_data_for_experiment_efficient(exp: str, data_dir: Path = PARQUET_DIR):
+    data_dir = Path(data_dir)
+    parquet_file = data_dir / f"{exp}.parquet"
+    if not parquet_file.exists():
+        raise FileNotFoundError(f"Parquet file for experiment {exp} not found in {data_dir}")
+    df = pl.read_parquet(parquet_file)
+    required_cols = ["time", "x", "y", "z", "Temp_K"]
+    missing = [c for c in required_cols if c not in df.columns]
+    if missing:
+        raise ValueError(f"Missing required columns {missing} in {parquet_file}")
+    X = df.select(["time", "x", "y", "z"]).to_numpy()
+    y = df.select(["Temp_K"]).to_numpy()
+    return X, y
+
+# -------------------------------------------------------------------------
+# Random train/val/test split (must match your NN approach)
+# -------------------------------------------------------------------------
+def split_random(X, y, test_fraction=0.1, val_fraction=0.2, random_state=42):
+    X_temp, X_test, y_temp, y_test = train_test_split(
+        X, y, test_size=test_fraction, random_state=random_state, shuffle=True
+    )
+    X_train, X_val, y_train, y_val = train_test_split(
+        X_temp, y_temp, test_size=val_fraction, random_state=random_state, shuffle=True
+    )
+    print(f"Final splits - Train: {X_train.shape[0]}, Val: {X_val.shape[0]}, Test: {X_test.shape[0]}")
+    return X_train, X_val, X_test, y_train, y_val, y_test
+
+# -------------------------------------------------------------------------
+# Min–max scaling for inputs (PINN uses this)
+# -------------------------------------------------------------------------
+def compute_input_scaler(X_train: np.ndarray):
+    mins = X_train.min(axis=0)
+    maxs = X_train.max(axis=0)
+    scales = maxs - mins
+    scales[scales == 0.0] = 1.0
+    return {
+        "mins": mins.astype(np.float32),
+        "maxs": maxs.astype(np.float32),
+        "scales": scales.astype(np.float32),
+    }
+
+def scale_inputs_np(X: np.ndarray, scaler: dict):
+    return (X - scaler["mins"]) / scaler["scales"]
+
+def scale_inputs_tf(X_tf: tf.Tensor, scaler: dict):
+    mins = tf.constant(scaler["mins"], dtype=tf.float32)
+    scales = tf.constant(scaler["scales"], dtype=tf.float32)
+    return (X_tf - mins) / scales
+
+# -------------------------------------------------------------------------
+# Model
+# -------------------------------------------------------------------------
+def create_model(
+    input_dim=model_parameters["input_dim"],
+    learning_rate=training_parameters["learning_rate"],
+    layer_sizes=model_parameters["layer_sizes"],
+    activation=model_parameters["activation"],
+):
+    reg = regularizers.l2(1e-6)
+    inputs = Input(shape=(input_dim,), name="input")
+    x = inputs
+    x = Dense(layer_sizes[0], activation=activation, kernel_regularizer=reg)(x)
+    x = Dropout(0.05)(x)
+    x = Dense(layer_sizes[1], activation=activation, kernel_regularizer=reg)(x)
+    x = Dense(layer_sizes[2], activation=activation, kernel_regularizer=reg)(x)
+    x = Dense(layer_sizes[3], activation=activation, kernel_regularizer=reg)(x)
+    x = Dense(layer_sizes[4], activation=activation, kernel_regularizer=reg)(x)
+    x = Dense(layer_sizes[5], activation=activation, kernel_regularizer=reg)(x)
+    outputs = Dense(layer_sizes[6], name="output")(x)
+    model = Model(inputs=inputs, outputs=outputs, name="PINN_surrogate")
+    optimizer = Adam(learning_rate=learning_rate)
+    model.compile(optimizer=optimizer, loss="mse")
+    return model
+
+# -------------------------------------------------------------------------
+# Material properties: k(T), Cp(T) from CSV tables
+# -------------------------------------------------------------------------
+MATERIAL_DIR = SCRIPT_DIR.parent / "data"
+K_CSV_PATH = MATERIAL_DIR / "K_vs_temp_simufact_316L.csv"
+CP_CSV_PATH = MATERIAL_DIR / "C_p_vs_temp_simufact_316L.csv"
+
+k_table = np.loadtxt(str(K_CSV_PATH), delimiter=",", skiprows=1)
+cp_table = np.loadtxt(str(CP_CSV_PATH), delimiter=",", skiprows=1)
+
+T_k_np = k_table[:, 0].astype("float32")
+k_np = k_table[:, 1].astype("float32")
+
+T_cp_np = cp_table[:, 0].astype("float32")
+cp_np = cp_table[:, 1].astype("float32")
+
+T_k_tf = tf.constant(T_k_np)
+k_tf = tf.constant(k_np)
+T_cp_tf = tf.constant(T_cp_np)
+cp_tf = tf.constant(cp_np)
+
+def interp1d_tf(x, x_data, y_data):
+    x = tf.cast(x, tf.float32)
+    x_shape = tf.shape(x)
+    x_flat = tf.reshape(x, [-1])
+    x_clamped = tf.clip_by_value(x_flat, x_data[0], x_data[-1])
+
+    idx = tf.searchsorted(x_data, x_clamped, side="right")
+    n = tf.shape(x_data)[0]
+    idx = tf.clip_by_value(idx, 1, n - 1)
+
+    x0 = tf.gather(x_data, idx - 1)
+    x1 = tf.gather(x_data, idx)
+    y0 = tf.gather(y_data, idx - 1)
+    y1 = tf.gather(y_data, idx)
+
+    t = (x_clamped - x0) / (x1 - x0)
+    y_flat = y0 + t * (y1 - y0)
+
+    y = tf.reshape(y_flat, x_shape)
+    return y
+
+def k_of_T(T):
+    return interp1d_tf(T, T_k_tf, k_tf)
+
+def cp_of_T(T):
+    return interp1d_tf(T, T_cp_tf, cp_tf)
+
+# -------------------------------------------------------------------------
+# Physics constants & Goldak heat source
+# -------------------------------------------------------------------------
+rho = 7966.0
+h_c = 20.0
+eps = 0.6
+sigma = 5.67e-8
+T_room = 293.15
+
+def goldak_heat_source(x, y, z, t, V, I, eff, a_f, a_r, b, c, v_robot_mm_per_min):
+    v_m_s = v_robot_mm_per_min / 60000.0
+    Q_total = eff * V * I
+
+    F_f = a_f / (a_f + a_r)
+    F_r = a_r / (a_f + a_r)
+
+    k_f = 6.0 * np.sqrt(3.0) * Q_total * F_f / (np.pi * np.sqrt(np.pi) * a_f * b * c)
+    k_r = 6.0 * np.sqrt(3.0) * Q_total * F_r / (np.pi * np.sqrt(np.pi) * a_r * b * c)
+
+    x_center = v_m_s * t
+    front_mask = x <= x_center
+
+    q_front = k_f * np.exp(-3.0 * (((x - x_center) ** 2) / (a_f**2) + (y**2) / (b**2) + (z**2) / (c**2)))
+    q_rear  = k_r * np.exp(-3.0 * (((x - x_center) ** 2) / (a_r**2) + (y**2) / (b**2) + (z**2) / (c**2)))
+
+    return np.where(front_mask, q_front, q_rear)
+
+# -------------------------------------------------------------------------
+# BC / IC sampling
+# -------------------------------------------------------------------------
+def sample_bc_ic_points(df: pl.DataFrame):
+    x_min, x_max = df.select(pl.col("x").min())[0, 0], df.select(pl.col("x").max())[0, 0]
+    y_min, y_max = df.select(pl.col("y").min())[0, 0], df.select(pl.col("y").max())[0, 0]
+    z_min, z_max = df.select(pl.col("z").min())[0, 0], df.select(pl.col("z").max())[0, 0]
+    t0 = df.select(pl.col("time").min())[0, 0]
+
+    df_bc = df.filter(
+        (pl.col("x") == x_min) | (pl.col("x") == x_max) |
+        (pl.col("y") == y_min) | (pl.col("y") == y_max) |
+        (pl.col("z") == z_min) | (pl.col("z") == z_max)
+    )
+    df_ic = df.filter(pl.col("time") == t0)
+
+    X_bc = df_bc.select(["time", "x", "y", "z"]).to_numpy()
+    X_ic = df_ic.select(["time", "x", "y", "z"]).to_numpy()
+    return X_bc, X_ic
+
+# -------------------------------------------------------------------------
+# Physics-informed losses (k(T), Cp(T) version)
+# -------------------------------------------------------------------------
+def compute_pde_residual(model, X_phys, Q, scaler, rho=rho):
+    X_tf = tf.convert_to_tensor(X_phys, dtype=tf.float32)
+    t = X_tf[:, 0:1]
+    x = X_tf[:, 1:2]
+    y = X_tf[:, 2:3]
+    z = X_tf[:, 3:4]
+    Q_tf = tf.convert_to_tensor(Q, dtype=tf.float32)
+
+    mins = scaler["mins"]
+    scales = scaler["scales"]
+    t_min, x_min, y_min, z_min = [tf.constant(m, dtype=tf.float32) for m in mins]
+    t_scl, x_scl, y_scl, z_scl = [tf.constant(s, dtype=tf.float32) for s in scales]
+
+    def safe_grad(tape, y_tensor, x_tensor):
+        g = tape.gradient(y_tensor, x_tensor)
+        if g is None:
+            g = tf.zeros_like(x_tensor)
+        return g
+
+    with tf.GradientTape(persistent=True) as tape:
+        tape.watch([t, x, y, z])
+
+        t_scaled = (t - t_min) / t_scl
+        x_scaled = (x - x_min) / x_scl
+        y_scaled = (y - y_min) / y_scl
+        z_scaled = (z - z_min) / z_scl
+
+        inputs_scaled = tf.concat([t_scaled, x_scaled, y_scaled, z_scaled], axis=1)
+        T = model(inputs_scaled)
+
+        k_T = k_of_T(T)
+        Cp_T = cp_of_T(T)
+
+    dT_dt = safe_grad(tape, T, t)
+    dT_dx = safe_grad(tape, T, x)
+    dT_dy = safe_grad(tape, T, y)
+    dT_dz = safe_grad(tape, T, z)
+
+    d2T_dx2 = safe_grad(tape, dT_dx, x)
+    d2T_dy2 = safe_grad(tape, dT_dy, y)
+    d2T_dz2 = safe_grad(tape, dT_dz, z)
+
+    dk_dT = safe_grad(tape, k_T, T)
+    del tape
+
+    lapT = d2T_dx2 + d2T_dy2 + d2T_dz2
+    gradT_sq = dT_dx**2 + dT_dy**2 + dT_dz**2
+    div_k_gradT = k_T * lapT + dk_dT * gradT_sq
+
+    return rho * Cp_T * dT_dt - div_k_gradT - Q_tf
+
+def compute_pde_loss(model, X_pde, Q, scaler):
+    R_pde = compute_pde_residual(model, X_pde, Q, scaler)
+    return tf.reduce_mean(tf.square(R_pde))
+
+def compute_bc_loss(model, X_bc, scaler):
+    X_bc_tf = tf.convert_to_tensor(X_bc, dtype=tf.float32)
+
+    mins = scaler["mins"]
+    scales = scaler["scales"]
+    t_min, x_min, y_min, z_min = [tf.constant(m, dtype=tf.float32) for m in mins]
+    t_scl, x_scl, y_scl, z_scl = [tf.constant(s, dtype=tf.float32) for s in scales]
+
+    with tf.GradientTape() as tape:
+        tape.watch(X_bc_tf)
+        t = X_bc_tf[:, 0:1]
+        x = X_bc_tf[:, 1:2]
+        y = X_bc_tf[:, 2:3]
+        z = X_bc_tf[:, 3:4]
+
+        t_scaled = (t - t_min) / t_scl
+        x_scaled = (x - x_min) / x_scl
+        y_scaled = (y - y_min) / y_scl
+        z_scaled = (z - z_min) / z_scl
+
+        inputs_scaled = tf.concat([t_scaled, x_scaled, y_scaled, z_scaled], axis=1)
+        T_bc = model(inputs_scaled)
+
+    grads = tape.gradient(T_bc, X_bc_tf)
+    dT_dx = grads[:, 1:2]
+    dT_dy = grads[:, 2:3]
+    dT_dz = grads[:, 3:4]
+
+    dT_dn = dT_dx + dT_dy + dT_dz  # crude
+
+    T_room_tf = tf.constant(T_room, dtype=tf.float32)
+    T_bc_eff = tf.clip_by_value(T_bc, T_room_tf, T_room_tf + 2500.0)
+
+    k_bc = k_of_T(T_bc_eff)
+
+    q_conv = -h_c * (T_bc_eff - T_room_tf)
+    q_rad = -eps * sigma * (T_bc_eff**4 - T_room_tf**4)
+
+    R_bc = k_bc * dT_dn - (q_conv + q_rad)
+    return tf.reduce_mean(tf.square(R_bc))
+
+def compute_ic_loss(model, X_ic, scaler, T_initial):
+    X_ic_tf = tf.convert_to_tensor(X_ic, dtype=tf.float32)
+
+    mins = scaler["mins"]
+    scales = scaler["scales"]
+    t_min, x_min, y_min, z_min = [tf.constant(m, dtype=tf.float32) for m in mins]
+    t_scl, x_scl, y_scl, z_scl = [tf.constant(s, dtype=tf.float32) for s in scales]
+
+    t = X_ic_tf[:, 0:1]
+    x = X_ic_tf[:, 1:2]
+    y = X_ic_tf[:, 2:3]
+    z = X_ic_tf[:, 3:4]
+
+    t_scaled = (t - t_min) / t_scl
+    x_scaled = (x - x_min) / x_scl
+    y_scaled = (y - y_min) / y_scl
+    z_scaled = (z - z_min) / z_scl
+
+    inputs_scaled = tf.concat([t_scaled, x_scaled, y_scaled, z_scaled], axis=1)
+    T_ic = model(inputs_scaled)
+
+    T_initial_tf = tf.constant(T_initial, dtype=tf.float32)
+    return tf.reduce_mean(tf.square(T_ic - T_initial_tf))
+
+def compute_total_loss(
+    model, X_data, y_data, X_pde, Q, X_bc, X_ic,
+    w_data, w_pde, w_bc, w_ic, scaler, T_initial
+):
+    X_data_tf = tf.convert_to_tensor(X_data, dtype=tf.float32)
+    y_data_tf = tf.convert_to_tensor(y_data, dtype=tf.float32)
+
+    X_data_scaled = scale_inputs_tf(X_data_tf, scaler)
+    y_pred = model(X_data_scaled)
+
+    # Weighted data loss (low-T boost)
+    T_threshold = 500.0
+    weight_low = 5.0
+    weights = tf.ones_like(y_data_tf)
+    weights = tf.where(y_data_tf < T_threshold, weight_low, weights)
+    L_data = tf.reduce_mean(weights * tf.square(y_pred - y_data_tf))
+
+    L_pde = compute_pde_loss(model, X_pde, Q, scaler)
+    L_bc  = compute_bc_loss(model, X_bc, scaler)
+    L_ic  = compute_ic_loss(model, X_ic, scaler, T_initial)
+
+    total_loss = w_data * L_data + w_pde * L_pde + w_bc * L_bc + w_ic * L_ic
+    return total_loss, L_data, L_pde, L_bc, L_ic
+
+# -------------------------------------------------------------------------
+# Gradient-norm-based adaptive weighting helper
+# -------------------------------------------------------------------------
+def estimate_component_grad_norms(
+    model, X_data, y_data, X_pde, Q, X_bc, X_ic, scaler, T_initial
+):
+    with tf.GradientTape(persistent=True) as tape:
+        _, L_data, L_pde, L_bc, L_ic = compute_total_loss(
+            model, X_data, y_data, X_pde, Q, X_bc, X_ic,
+            w_data=1.0, w_pde=1.0, w_bc=1.0, w_ic=1.0,
+            scaler=scaler, T_initial=T_initial
+        )
+
+    grads_data = tape.gradient(L_data, model.trainable_variables)
+    grads_pde  = tape.gradient(L_pde,  model.trainable_variables)
+    grads_bc   = tape.gradient(L_bc,   model.trainable_variables)
+    grads_ic   = tape.gradient(L_ic,   model.trainable_variables)
+    del tape
+
+    g_data = float(tf.linalg.global_norm(grads_data).numpy() + 1e-16)
+    g_pde  = float(tf.linalg.global_norm(grads_pde ).numpy() + 1e-16)
+    g_bc   = float(tf.linalg.global_norm(grads_bc  ).numpy() + 1e-16)
+    g_ic   = float(tf.linalg.global_norm(grads_ic  ).numpy() + 1e-16)
+
+    return g_data, g_pde, g_bc, g_ic
+
+# -------------------------------------------------------------------------
+# Evaluation utilities
+# -------------------------------------------------------------------------
+def evaluate_model(model, X_test, y_test, exp, dataset_type, scaler):
+    X_scaled = scale_inputs_np(X_test, scaler)
+    y_pred = model.predict(X_scaled, verbose=0).flatten()
+    y_original = y_test.flatten()
+
+    rmse = np.sqrt(mean_squared_error(y_original, y_pred))
+    mae = mean_absolute_error(y_original, y_pred)
+    r2 = r2_score(y_original, y_pred)
+    try:
+        corr, _ = pearsonr(y_original, y_pred)
+    except Exception:
+        corr = float("nan")
+
+    logger.info(f"\n=== {dataset_type.title()} Evaluation Metrics for experiment {exp} ===")
+    logger.info(f"RMSE: {rmse:.4f}")
+    logger.info(f"MAE: {mae:.4f}")
+    logger.info(f"R²: {r2:.4f}")
+    logger.info(f"Pearson Correlation: {corr:.4f}")
+
+    os.makedirs("evaluation_results_PINNS", exist_ok=True)
+    csv_file = f"evaluation_results_PINNS/model_evaluation_metrics_{dataset_type}.csv"
+    file_exists = os.path.exists(csv_file)
+    with open(csv_file, mode="a", newline="") as f:
+        writer = csv.writer(f)
+        if not file_exists:
+            writer.writerow(["Experiment", "RMSE", "MAE", "R2", "Pearson Correlation"])
+        writer.writerow([f"exp_{exp}", f"{rmse:.4f}", f"{mae:.4f}", f"{r2:.4f}", f"{corr:.4f}"])
+
+    plt.figure(figsize=(8, 6))
+    plt.scatter(y_original, y_pred, alpha=0.6, s=10)
+    plt.plot([y_original.min(), y_original.max()], [y_original.min(), y_original.max()], "r--", lw=2)
+    plt.xlabel("Original Temperature (Kelvin)")
+    plt.ylabel("Predicted Temperature (Kelvin)")
+    plt.grid(True, alpha=0.3)
+    plt.title(f"Predicted vs Actual Temperature ({dataset_type.title()}) - {exp}")
+    plt.text(0.05, 0.95, f"R² = {r2:.4f}", transform=plt.gca().transAxes,
+             bbox=dict(boxstyle="round", facecolor="white", alpha=0.8))
+
+    plot_dir = os.path.abspath("evaluation_plots_PINNS")
+    os.makedirs(plot_dir, exist_ok=True)
+    plt.savefig(os.path.join(plot_dir, f"predicted_vs_actual_{dataset_type}_{exp}.png"),
+                dpi=300, bbox_inches="tight")
+    plt.close()
+
+    return {"RMSE": rmse, "MAE": mae, "R2": r2, "Pearson_Correlation": corr}
+
+# -------------------------------------------------------------------------
+# ADDED: Temp vs Time plots (NN-style) for PINNs:
+# - Use TEST points only
+# - Group by time and plot mean temperature:
+#   Original (test mean) vs Predicted (test mean)
+# -------------------------------------------------------------------------
+def plot_temp_vs_time_test_mean(model, X_test, y_test, scaler, exp: str, out_dir="evaluation_plots_PINNS"):
+    os.makedirs(out_dir, exist_ok=True)
+
+    X_scaled = scale_inputs_np(X_test, scaler)
+    y_pred = model.predict(X_scaled, verbose=0).flatten()
+
+    df_plot = pd.DataFrame({
+        "time": X_test[:, 0],
+        "T_true": y_test.flatten(),
+        "T_pred": y_pred,
+    })
+
+    df_mean = df_plot.groupby("time", as_index=False).mean(numeric_only=True).sort_values("time")
+
+    plt.figure(figsize=(10, 5))
+    plt.plot(df_mean["time"], df_mean["T_true"], label="Original (test mean)")
+    plt.plot(df_mean["time"], df_mean["T_pred"], linestyle="--", label="PINN Predicted (test mean)")
+    plt.xlabel("Time")
+    plt.ylabel("Temperature (K)")
+    plt.title(f"Temp vs Time (TEST mean) — {exp}")
+    plt.grid(True, alpha=0.3)
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(os.path.join(out_dir, f"temp_vs_time_test_mean_{exp}.png"),
+                dpi=300, bbox_inches="tight")
+    plt.close()
+
+# -------------------------------------------------------------------------
+# Stage 1: pure data training
+# -------------------------------------------------------------------------
+def pretrain_data_only(model, X_train, y_train, X_val, y_val, exp, training_parameters, scaler):
+    epochs = training_parameters["epochs_data_only"]
+    batch_size = training_parameters["batch_size"]
+    lr = training_parameters["learning_rate"]
+
+    X_train_scaled = scale_inputs_np(X_train, scaler)
+    X_val_scaled = scale_inputs_np(X_val, scaler)
+
+    model.compile(optimizer=Adam(learning_rate=lr), loss="mse", metrics=["mae"])
+
+    callbacks = [
+        tf.keras.callbacks.EarlyStopping(monitor="val_loss", patience=15, restore_best_weights=True),
+        tf.keras.callbacks.ReduceLROnPlateau(monitor="val_loss", factor=0.5, patience=7,
+                                             min_lr=training_parameters["min_lr"]),
+    ]
+
+    logger.info(f"[{exp}] Starting Stage 1 (data-only) training for {epochs} epochs...")
+    history = model.fit(
+        X_train_scaled, y_train,
+        validation_data=(X_val_scaled, y_val),
+        epochs=epochs, batch_size=batch_size,
+        shuffle=True, callbacks=callbacks, verbose=2
+    )
+
+    plt.figure(figsize=(8, 4))
+    plt.plot(history.history["loss"], label="train_loss")
+    plt.plot(history.history["val_loss"], label="val_loss")
+    plt.xlabel("Epochs")
+    plt.ylabel("MSE (K^2)")
+    plt.title(f"Data-Only Training Loss - {exp}")
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    plot_dir = Path("training_plots_PINNS")
+    plot_dir.mkdir(exist_ok=True)
+    plt.savefig(plot_dir / f"training_history_data_only_{exp}.png", dpi=300, bbox_inches="tight")
+    plt.close()
+
+    logger.info(f"[{exp}] Stage 1 (data-only) training complete.")
+    return model
+
+# -------------------------------------------------------------------------
+# Stage 2: PINN fine-tuning
+# -------------------------------------------------------------------------
+def train_and_save_model_pinn(
+    model, X_train, X_val, X_test, y_train, y_val, y_test,
+    exp, training_parameters, physics_params, scaler,
+    X_all, Q_all, X_bc_raw, X_ic_raw, T_initial
+):
+    epochs = training_parameters["epochs_pinn"]
+    batch_size = training_parameters["batch_size"]
+    learning_rate = training_parameters["learning_rate"]
+
+    pde_warmup_epochs = training_parameters.get("pde_warmup_epochs", 0)
+    max_grad_norm = training_parameters.get("max_grad_norm", None)
+    bc_batch_size = training_parameters.get("bc_batch_size", 2048)
+    ic_batch_size = training_parameters.get("ic_batch_size", 2048)
+    max_batches_per_epoch = training_parameters.get("max_batches_per_epoch", None)
+    physics_batch_size = training_parameters.get("physics_batch_size", 2048)
+
+    optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
+
+    # histories
+    total_hist, data_hist = [], []
+    pde_hist, bc_hist, ic_hist = [], [], []
+    val_hist = []  # ADDED validation loss history (data MSE on val)
+
+    X_val_tf = tf.convert_to_tensor(X_val, dtype=tf.float32)
+    y_val_tf = tf.convert_to_tensor(y_val, dtype=tf.float32)
+
+    early_patience = training_parameters["early_stopping_patience"]
+    lr_patience = training_parameters["lr_reduce_patience"]
+
+    best_val_loss = np.inf
+    best_weights = model.get_weights()
+    epochs_since_improvement = 0
+    epochs_since_lr_reduce = 0
+
+    n_train = X_train.shape[0]
+    n_phys = X_all.shape[0]
+    log_interval = 10
+
+    for epoch in range(epochs):
+        w_data_base, w_pde_base, w_bc_base, w_ic_base = scheduled_weights(epoch, epochs)
+
+        if epoch < pde_warmup_epochs:
+            w_data, w_pde, w_bc, w_ic = 1.0, 0.0, 0.0, 0.0
+        else:
+            data_idx_g = np.random.choice(n_train, min(batch_size, n_train), replace=False)
+            X_data_g = X_train[data_idx_g]
+            y_data_g = y_train[data_idx_g]
+
+            phys_idx_g = np.random.choice(n_phys, min(physics_batch_size, n_phys), replace=False)
+            X_pde_g = X_all[phys_idx_g]
+            Q_g = Q_all[phys_idx_g].reshape(-1, 1)
+
+            X_bc_g = X_bc_raw[np.random.choice(X_bc_raw.shape[0], min(bc_batch_size, X_bc_raw.shape[0]), replace=False)] \
+                if X_bc_raw.shape[0] > 0 else X_bc_raw
+            X_ic_g = X_ic_raw[np.random.choice(X_ic_raw.shape[0], min(ic_batch_size, X_ic_raw.shape[0]), replace=False)] \
+                if X_ic_raw.shape[0] > 0 else X_ic_raw
+
+            g_data, g_pde, g_bc, g_ic = estimate_component_grad_norms(
+                model, X_data_g, y_data_g, X_pde_g, Q_g, X_bc_g, X_ic_g, scaler, T_initial
+            )
+
+            target = g_data
+            eps_g = 1e-12
+
+            w_data = w_data_base
+            w_pde = w_pde_base * (target / (g_pde + eps_g))
+            w_bc  = w_bc_base  * (target / (g_bc  + eps_g))
+            w_ic  = w_ic_base  * (target / (g_ic  + eps_g)) * 2.0
+
+            w_pde = float(np.clip(w_pde, 1e-12, 1e4))
+            w_bc  = float(np.clip(w_bc,  1e-12, 1e4))
+            w_ic  = float(np.clip(w_ic,  1e-12, 1e4))
+
+        indices_data = np.random.permutation(n_train)
+
+        epoch_total_losses, epoch_data_losses = [], []
+        epoch_pde_losses, epoch_bc_losses, epoch_ic_losses = [], [], []
+
+        n_batches_full = int(np.ceil(n_train / batch_size))
+        n_batches = min(n_batches_full, max_batches_per_epoch) if max_batches_per_epoch is not None else n_batches_full
+
+        for batch_idx in range(n_batches):
+            start_idx = batch_idx * batch_size
+            end_idx = min(start_idx + batch_size, n_train)
+            data_idx = indices_data[start_idx:end_idx]
+
+            X_batch = X_train[data_idx]
+            y_batch = y_train[data_idx]
+
+            phys_idx = np.random.choice(n_phys, min(physics_batch_size, n_phys), replace=False)
+            X_pde_batch = X_all[phys_idx]
+            Q_batch = Q_all[phys_idx].reshape(-1, 1)
+
+            X_bc_batch = X_bc_raw[np.random.choice(X_bc_raw.shape[0], min(bc_batch_size, X_bc_raw.shape[0]), replace=False)] \
+                if X_bc_raw.shape[0] > bc_batch_size else X_bc_raw
+            X_ic_batch = X_ic_raw[np.random.choice(X_ic_raw.shape[0], min(ic_batch_size, X_ic_raw.shape[0]), replace=False)] \
+                if X_ic_raw.shape[0] > ic_batch_size else X_ic_raw
+
+            with tf.GradientTape() as tape:
+                total_loss, L_data, L_pde, L_bc, L_ic = compute_total_loss(
+                    model, X_batch, y_batch, X_pde_batch, Q_batch,
+                    X_bc_batch, X_ic_batch, w_data, w_pde, w_bc, w_ic,
+                    scaler, T_initial
+                )
+
+            grads = tape.gradient(total_loss, model.trainable_variables)
+            if max_grad_norm is not None:
+                grads, _ = tf.clip_by_global_norm(grads, max_grad_norm)
+            optimizer.apply_gradients(zip(grads, model.trainable_variables))
+
+            epoch_total_losses.append(float(total_loss.numpy()))
+            epoch_data_losses.append(float(L_data.numpy()))
+            epoch_pde_losses.append(float(L_pde.numpy()))
+            epoch_bc_losses.append(float(L_bc.numpy()))
+            epoch_ic_losses.append(float(L_ic.numpy()))
+
+        # epoch averages
+        avg_epoch_loss = float(np.mean(epoch_total_losses))
+        avg_data_loss  = float(np.mean(epoch_data_losses))
+        avg_pde_loss   = float(np.mean(epoch_pde_losses))
+        avg_bc_loss    = float(np.mean(epoch_bc_losses))
+        avg_ic_loss    = float(np.mean(epoch_ic_losses))
+
+        total_hist.append(avg_epoch_loss)
+        data_hist.append(avg_data_loss)
+        pde_hist.append(avg_pde_loss)
+        bc_hist.append(avg_bc_loss)
+        ic_hist.append(avg_ic_loss)
+
+        # Validation data loss (pure MSE on val)
+        X_val_scaled_tf = scale_inputs_tf(X_val_tf, scaler)
+        val_pred = model(X_val_scaled_tf, training=False)
+        val_loss_data = float(tf.reduce_mean(tf.square(val_pred - y_val_tf)).numpy())
+        val_hist.append(val_loss_data)
+
+        # Early stopping bookkeeping
+        if val_loss_data < best_val_loss:
+            best_val_loss = val_loss_data
+            best_weights = model.get_weights()
+            epochs_since_improvement = 0
+        else:
+            epochs_since_improvement += 1
+
+        epochs_since_lr_reduce += 1
+
+        if (epoch + 1) % log_interval == 0 or epoch == 0 or epoch == (epochs - 1):
+            with logger.info_lock:
+                logger.info(
+                    f"[{exp}] Epoch {epoch+1}/{epochs} | "
+                    f"Avg Total: {avg_epoch_loss:.4e} | "
+                    f"Val Data: {val_loss_data:.4e} | "
+                    f"Avg(Data={avg_data_loss:.3e}, PDE={avg_pde_loss:.3e}, BC={avg_bc_loss:.3e}, IC={avg_ic_loss:.3e}) | "
+                    f"w_data={w_data:.1e}, w_pde={w_pde:.1e}, w_bc={w_bc:.1e}, w_ic={w_ic:.1e}"
+                )
+
+        # LR scheduling
+        if epochs_since_lr_reduce >= lr_patience:
+            old_lr = float(optimizer.learning_rate.numpy())
+            new_lr = max(old_lr * training_parameters["lr_reduce_factor"], training_parameters["min_lr"])
+            if new_lr < old_lr:
+                optimizer.learning_rate.assign(new_lr)
+                with logger.info_lock:
+                    logger.info(f"[{exp}] Reducing LR {old_lr:.2e} → {new_lr:.2e}")
+            epochs_since_lr_reduce = 0
+
+        # Early stopping
+        if epochs_since_improvement >= early_patience:
+            with logger.info_lock:
+                logger.info(f"[{exp}] Early stopping at epoch {epoch+1}. Best val data loss: {best_val_loss:.4e}")
+            break
+
+    # restore best weights
+    model.set_weights(best_weights)
+
+    # save model + scaler
+    save_dir = Path("trained_models_PINNS")
+    save_dir.mkdir(parents=True, exist_ok=True)
+    model.save(save_dir / f"model_{exp}.h5")
+    np.savez(save_dir / f"input_scaler_{exp}.npz",
+             mins=scaler["mins"], maxs=scaler["maxs"], scales=scaler["scales"])
+
+    # ----- plots: physics components + (total/data/val) -----
+    epochs_arr = np.arange(1, len(total_hist) + 1)
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 8), sharex=True)
+
+    ax1.plot(epochs_arr, pde_hist, label="pdeLoss")
+    ax1.plot(epochs_arr, bc_hist,  label="bcLoss")
+    ax1.plot(epochs_arr, ic_hist,  label="icLoss")
+    ax1.set_yscale("log")
+    ax1.set_ylabel("Phys Loss")
+    ax1.set_title(f"PINN Physics Losses - {exp}")
+    ax1.grid(True, which="both", alpha=0.3)
+    ax1.legend()
+
+    ax2.plot(epochs_arr, total_hist, label="TotalLoss")
+    ax2.plot(epochs_arr, data_hist,  label="dataLoss")
+    ax2.plot(epochs_arr, val_hist,   label="valDataLoss")  # ADDED
+    ax2.set_yscale("log")
+    ax2.set_xlabel("Epoch")
+    ax2.set_ylabel("Total/Data/Val Loss")
+    ax2.set_title("Total vs Data vs Validation Loss")
+    ax2.grid(True, which="both", alpha=0.3)
+    ax2.legend()
+
+    plt.tight_layout()
+    plot_dir = Path("training_plots_PINNS")
+    plot_dir.mkdir(exist_ok=True)
+    plt.savefig(plot_dir / f"training_history_pinn_{exp}_components.png", dpi=300, bbox_inches="tight")
+    plt.close()
+
+    # Evaluate
+    train_metrics = evaluate_model(model, X_train, y_train, exp, "training", scaler)
+    val_metrics   = evaluate_model(model, X_val,   y_val,   exp, "validation", scaler)
+    test_metrics  = evaluate_model(model, X_test,  y_test,  exp, "test", scaler)
+
+    return model, total_hist, train_metrics, val_metrics, test_metrics
+
+# -------------------------------------------------------------------------
+# GPU config
+# -------------------------------------------------------------------------
+physical_devices = tf.config.list_physical_devices("GPU")
+if physical_devices:
+    try:
+        for device in physical_devices:
+            tf.config.experimental.set_memory_growth(device, True)
+        logger.info(f"✓ GPU memory growth enabled for {len(physical_devices)} device(s)")
+    except RuntimeError as e:
+        logger.info(f"GPU memory growth setting failed: {e}")
+else:
+    logger.info("No GPU devices found, running on CPU")
+
+# -------------------------------------------------------------------------
+# Main
+# -------------------------------------------------------------------------
+all_train_metrics, all_val_metrics, all_test_metrics = [], [], []
+
+for i, exp in enumerate(doe_str):
+    logger.info(f"\n=== Experiment {i+1}/{len(doe_str)}: {exp} ===")
+
+    if exp not in experiment_parameters:
+        logger.info(f"Skipping {exp} because YAML parameters are missing.")
+        continue
+
+    try:
+        X, y = load_data_for_experiment_efficient(exp)
+    except Exception as e:
+        logger.info(f"Skipping {exp}: {e}")
+        continue
+
+    logger.info(f"Loaded data shape: X={X.shape}, y={y.shape}")
+
+    df_exp = pl.DataFrame({
+        "time": X[:, 0],
+        "x": X[:, 1],
+        "y": X[:, 2],
+        "z": X[:, 3],
+        "Temp_K": y.flatten(),
+    })
+
+    t0 = df_exp.select(pl.col("time").min())[0, 0]
+    T_initial_val = df_exp.filter(pl.col("time") == t0).select(pl.col("Temp_K").mean())[0, 0]
+    logger.info(f"[{exp}] Data-derived initial temperature T_initial = {T_initial_val:.3f} K")
+
+    X_train, X_val, X_test, y_train, y_val, y_test = split_random(
+        X, y, test_fraction=0.1, val_fraction=0.2, random_state=42
+    )
+
+    scaler = compute_input_scaler(X_train)
+    with logger.info_lock:
+        logger.info(f"Input scaler for {exp} - mins: {scaler['mins']}, scales: {scaler['scales']}")
+
+    X_all = df_exp.select(["time", "x", "y", "z"]).to_numpy()
+
+    physics_params = experiment_parameters[exp]
+    V = physics_params["Voltage"]
+    I = physics_params["Current"]
+    eff = physics_params.get("Efficiency", physics_params.get("eff", 0.7))
+    a_f = physics_params.get("Front_length")
+    a_r = physics_params.get("Rear_length")
+    b = physics_params.get("Width")
+    c = physics_params.get("Depth")
+    v_robot_val = int(exp.split("_")[0])
+
+    Q_all = goldak_heat_source(
+        X_all[:, 1], X_all[:, 2], X_all[:, 3], X_all[:, 0],
+        V, I, eff, a_f, a_r, b, c, v_robot_val
+    )
+
+    X_bc_raw, X_ic_raw = sample_bc_ic_points(df_exp)
+
+    # Stage 1
+    model = create_model(input_dim=X.shape[1], learning_rate=training_parameters["learning_rate"])
+    model = pretrain_data_only(model, X_train, y_train, X_val, y_val, exp, training_parameters, scaler)
+
+    # Stage 2
+    model, losses, train_metrics, val_metrics, test_metrics = train_and_save_model_pinn(
+        model, X_train, X_val, X_test, y_train, y_val, y_test,
+        exp, training_parameters, physics_params,
+        scaler, X_all, Q_all, X_bc_raw, X_ic_raw, T_initial_val
+    )
+
+    # Temp vs Time (NN-style) using TEST mean: Original vs PINN predicted
+    plot_temp_vs_time_test_mean(model, X_test, y_test, scaler, exp, out_dir="evaluation_plots_PINNS")
+
+    train_metrics["experiment"] = exp
+    val_metrics["experiment"] = exp
+    test_metrics["experiment"] = exp
+
+    all_train_metrics.append(train_metrics)
+    all_val_metrics.append(val_metrics)
+    all_test_metrics.append(test_metrics)
+
+    logger.info(f"Completed experiment {exp}\n" + "-" * 60)
+
+logger.info("\n=== Training Complete ===")
+logger.info(f"Trained {len(all_train_metrics)} models successfully!")
+logger.info("All models saved in 'trained_models_PINNS/' directory")
+logger.info("Evaluation metrics saved in 'evaluation_results_PINNS/' directory")
+logger.info("Training plots saved in 'training_plots_PINNS/' directory")
+logger.info("Temp-vs-time plots saved in 'evaluation_plots_PINNS/' directory")
+
+# -------------------------------------------------------------------------
+# Cross-experiment summary
+# -------------------------------------------------------------------------
+if all_test_metrics:
+    results_df = pd.DataFrame(all_test_metrics)
+
+    logger.info("=== Summary of Test Results Across All Experiments ===")
+    logger.info(f"Average RMSE: {results_df['RMSE'].mean():.4f} ± {results_df['RMSE'].std():.4f}")
+    logger.info(f"Average MAE: {results_df['MAE'].mean():.4f} ± {results_df['MAE'].std():.4f}")
+    logger.info(f"Average R²: {results_df['R2'].mean():.4f} ± {results_df['R2'].std():.4f}")
+    logger.info(
+        f"Average Pearson Correlation: {results_df['Pearson_Correlation'].mean():.4f} ± "
+        f"{results_df['Pearson_Correlation'].std():.4f}"
+    )
+
+    best_r2_idx = results_df["R2"].idxmax()
+    worst_r2_idx = results_df["R2"].idxmin()
+
+    logger.info(
+        f"\nBest performing experiment: {results_df.loc[best_r2_idx, 'experiment']} "
+        f"(R² = {results_df.loc[best_r2_idx, 'R2']:.4f})"
+    )
+    logger.info(
+        f"Worst performing experiment: {results_df.loc[worst_r2_idx, 'experiment']} "
+        f"(R² = {results_df.loc[worst_r2_idx, 'R2']:.4f})"
+    )
+
+    os.makedirs("evaluation_results_PINNS", exist_ok=True)
+    results_df.to_csv("evaluation_results_PINNS/all_experiments_test_summary.csv", index=False)
+    logger.info("Summary results saved to 'evaluation_results_PINNS/all_experiments_test_summary.csv'")
+
+    fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+
+    axes[0, 0].hist(results_df["RMSE"], bins=10, alpha=0.7, edgecolor="black")
+    axes[0, 0].set_title("Distribution of RMSE")
+    axes[0, 0].set_xlabel("RMSE")
+    axes[0, 0].set_ylabel("Count")
+
+    axes[0, 1].hist(results_df["MAE"], bins=10, alpha=0.7, edgecolor="black")
+    axes[0, 1].set_title("Distribution of MAE")
+    axes[0, 1].set_xlabel("MAE")
+    axes[0, 1].set_ylabel("Count")
+
+    axes[1, 0].hist(results_df["R2"], bins=10, alpha=0.7, edgecolor="black")
+    axes[1, 0].set_title("Distribution of R²")
+    axes[1, 0].set_xlabel("R²")
+    axes[1, 0].set_ylabel("Count")
+
+    axes[1, 1].hist(results_df["Pearson_Correlation"], bins=10, alpha=0.7, edgecolor="black")
+    axes[1, 1].set_title("Distribution of Pearson Correlation")
+    axes[1, 1].set_xlabel("Pearson Correlation")
+    axes[1, 1].set_ylabel("Count")
+
+    plt.tight_layout()
+    plt.savefig("evaluation_results_PINNS/metrics_distribution_summary.png", dpi=300, bbox_inches="tight")
+    plt.close()
+
+    logger.info("Metrics distribution plots saved to 'evaluation_results_PINNS/metrics_distribution_summary.png'")
+else:
+    logger.info("No test metrics available. Please run the training loop first.")
