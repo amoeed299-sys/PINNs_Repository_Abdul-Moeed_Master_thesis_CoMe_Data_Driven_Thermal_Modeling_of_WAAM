@@ -87,8 +87,94 @@ Stage 2: PINN learning
 The total loss combines:
 
 ```text
-Total loss = data loss + PDE loss + boundary-condition loss + initial-condition loss
+Total loss = w_data*data loss + w_pde*PDE loss + w_bc*boundary-condition loss + w_ic*initial-condition loss
 ```
+
+The pde, bc, ic loss weights are adjusted using gradient-norm-based adaptive weighting.
+
+**Incorporated Physics**
+
+The PINN uses the transient thermal equation with:
+
+- Goldak double-ellipsoidal heat source.
+- PDE loss.
+- Convection loss.
+- Radiation loss.
+- Initial-temperature condition.
+- Temperature dependent specific heat capacity and thermal conductivity.
+
+The material temperature dependent properties Cp(T) and k(T) are read from CSV files:
+
+```text
+K_vs_temp_simufact_316L.csv
+C_p_vs_temp_simufact_316L.csv
+```
+
+**Data Split** 
+
+Data split is: 72% of data is used for training, 18% for validation, and 10 % for testing.
+
+ 
+**Repository Structure**
+
+```text
+PINNS-WORK-WAAM/
+├── master-thesis/
+│   ├── data/
+│   │   ├── pre_processed/
+│   │   │   ├── 200_2.parquet
+│   │   │   ├── experiment_200_2.yaml
+│   │   │   └── ...
+│   │   ├── K_vs_temp_simufact_316L.csv
+│   │   └── C_p_vs_temp_simufact_316L.csv
+│   └── scripts/
+│       ├── surrogate_model_training_v1.2(PINNs)_S.Hartmann_split-latest.py
+│       ├── surrogate_model_training_v1.2(PINNs)_S.Hartmann_split-latest.sh
+│       ├── Requirements.txt
+│       ├── trained_models_PINNS/
+│       ├── training_plots_PINNS/
+│       ├── evaluation_plots_PINNS/
+│       ├── evaluation_results_PINNS/
+│       └── training_log_*.log
+└── README.md
+```
+
+Each Yaml file stores all the parameters of Goldak double ellipsoidal heat source, current, voltage, efficiency, emissivity and convective heat transfer coefficient values for each experiment.
+
+
+**Requirements file**
+
+It containes all the required libraries necessary for the code execution.
+
+**Code execution**
+
+Move to the scripts directory:
+
+```bash
+cd master-thesis/scripts
+```
+
+Run the shell script:
+
+```bash
+bash "surrogate_model_training_v1.2(PINNs)_S.Hartmann_split-latest.sh"
+```
+
+Or run the Python file directly:
+
+```bash
+python "surrogate_model_training_v1.2(PINNs)_S.Hartmann_split-latest.py"
+```
+
+The filenames should be quoted because they contain parentheses.
+
+
+
+
+
+
+
+
 
 
 
