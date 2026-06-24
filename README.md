@@ -1,6 +1,6 @@
 # Data-Driven-Thermal-Modeling-Wire-Arc-Additive-Manufacturing-Process (PINNs approach)
 Data-driven thermal modeling of WAAM using Physics-Informed Neural Network Approach 
-_______________________________________________________________________________________________________________________________
+____________________________________________________________________________________________________________________________
 
 **Overview**
 
@@ -167,6 +167,11 @@ python "surrogate_model_training_v1.2(PINNs)-latest.py"
 ```
 
 The filenames should be quoted because they contain parentheses.
+
+## Outputs 
+
+**Trained Models**
+
 
 
 
