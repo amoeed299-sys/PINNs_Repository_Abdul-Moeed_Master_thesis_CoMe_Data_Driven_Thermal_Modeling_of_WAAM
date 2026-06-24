@@ -183,6 +183,20 @@ model_200_2.h5
 
 input_scaler_200_2.npz
 
+________________________________________________________________________________________________________________________________________
+
+**Training plots**
+
+Training loss plots including, data-only training loss (e.g. training_history_data_only_200_2.png), PINN physics losses (PDE, BC, IC), total loss, data loss and Validation loss  (e.g. training_history_pinn_200_2_components.png) are saved in folder:
+```text
+training_plots_PINNS/
+```
+For example, in training_history_pinn_200_2_components.png, there are two subplots. The upper subplot shows the phsyics loss plots incluidng Partial Different Equation loss, boundary condition loss, initial condition loss curves over the epochs and lower subplot includes total loss , data loss and validation loss plots over epochs.
+
+
+
+
+
 
 
 
