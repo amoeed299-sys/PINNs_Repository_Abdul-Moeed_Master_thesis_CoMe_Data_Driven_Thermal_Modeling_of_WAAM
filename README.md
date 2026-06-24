@@ -177,6 +177,14 @@ All the trained models  (.h5 file format) and input scaler information per DOE (
 trained_models_PINNS/
 ```
 
+Example:
+
+model_200_2.h5
+
+input_scaler_200_2.npz
+
+
+
 
 
 
