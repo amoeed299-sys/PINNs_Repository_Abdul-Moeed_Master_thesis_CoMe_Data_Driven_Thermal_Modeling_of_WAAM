@@ -183,7 +183,7 @@ model_200_2.h5
 
 input_scaler_200_2.npz
 
-________________________________________________________________________________________________________________________________________
+____________________________________________________________________________________________________________________________
 
 **Training plots**
 
@@ -194,7 +194,7 @@ training_plots_PINNS/
 For example, in training_history_pinn_200_2_components.png, there are two subplots. The upper subplot shows the phsyics loss plots incluidng Partial Different Equation loss, boundary condition loss, initial condition loss curves over the epochs and lower subplot includes total loss , data loss and validation loss plots over epochs.
 
 
-________________________________________________________________________________________________________________________________________
+____________________________________________________________________________________________________________________________
 
 **Evaluation plots**
 
@@ -203,8 +203,18 @@ Predicted verses actual temperature plots (scatter plots) and Temperature-versus
 ```text
 evaluation_plots_PINNS/
 ```
+____________________________________________________________________________________________________________________________
 
+**Evalution metrics**
 
+The main test-results file for all DOE is saved as model_evaluation_metrics_test.csv in the folder:
+
+```text
+evaluation_results_PINNS/
+```
+The metrics include: RMSE, MAE, R^2, and Pearson correlation. The folder evaluation_results_PINNS/ also contains evalution metrics files for training and validation data.
+
+___________________________________________________________________________________________________________________________
 
 
 
