@@ -15,4 +15,20 @@ ________________________________________________________________________________
 3. Save the 25 trained models in .h5 file format.
 4. Evaluate each model using Root Mean Squared Error (RMSE) , Mean Absolute Error (MAE), and coefficient of determination (R^2).
 5. Generate training, validation losses plots , PINNs losses (PDE, BC, IC losses), scatter plots, NN_predicted-verses-actual temperature-time plots for all 25 Experiments.
-_______________________________________________________________________________________________________________________________
+____________________________________________________________________________________________________________________________
+
+## Project Summary
+
+A Design of Experiments containing **25 simulations** was designed from combinations of:
+
+- Robot travel speed: `200, 400, 600, 800, 1000 mm/min`
+- Wire feed rate: `2, 4, 6, 8, 10 m/min`
+- We have 25 combination pairs like (200,2), (200,4), (200,6),...(600,6),...,(1000,10).
+
+Each simulation is converted into one Parquet file containing:
+
+```text
+time, x, y, z, Temp_K
+
+
+
