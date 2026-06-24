@@ -128,8 +128,8 @@ PINNS-WORK-WAAM/
 │   │   ├── K_vs_temp_simufact_316L.csv
 │   │   └── C_p_vs_temp_simufact_316L.csv
 │   └── scripts/
-│       ├── surrogate_model_training_v1.2(PINNs)_S.Hartmann_split-latest.py
-│       ├── surrogate_model_training_v1.2(PINNs)_S.Hartmann_split-latest.sh
+│       ├── surrogate_model_training_v1.2(PINNs)-latest.py
+│       ├── surrogate_model_training_v1.2(PINNs)-latest.sh
 │       ├── Requirements.txt
 │       ├── trained_models_PINNS/
 │       ├── training_plots_PINNS/
