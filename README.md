@@ -194,6 +194,18 @@ training_plots_PINNS/
 For example, in training_history_pinn_200_2_components.png, there are two subplots. The upper subplot shows the phsyics loss plots incluidng Partial Different Equation loss, boundary condition loss, initial condition loss curves over the epochs and lower subplot includes total loss , data loss and validation loss plots over epochs.
 
 
+________________________________________________________________________________________________________________________________________
+
+**Evaluation plots**
+
+Predicted verses actual temperature plots (scatter plots) and Temperature-versus-time comparison plots (PINN predcited against original temperature for test set) are saved in folder:
+
+```text
+evaluation_plots_PINNS/
+```
+
+
+
 
 
 
