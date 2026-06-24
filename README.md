@@ -217,6 +217,24 @@ The metrics include: RMSE, MAE, R^2, and Pearson correlation. The folder evaluat
 ___________________________________________________________________________________________________________________________
 
 
+ **Important Notes**
+
+- We have 25 trained models (25 DOE).
+- The input scaler file (.npz foramt) must always be used with its corresponding `.h5` model.
+- YAML and Parquet files must be there in the data/pre_processed folder for the execution of code (model training).
+- GPU memory growth is enabled automatically when a GPU is available.
+- Training logs are written both to the terminal and to timestamped `.log` files.
+
+
+
+**Project** 
+
+Master’s thesis — Data-Driven Thermal Modeling of Wire Arc Additive Manufacturing Process
+
+**Author** 
+
+Abdul-Moeed 
+
 
 
 
