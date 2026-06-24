@@ -172,7 +172,7 @@ The filenames should be quoted because they contain parentheses.
 
 **Trained Models**
 
-All the trained models are saved in .h5 format in forlder:
+All the trained models  (.h5 file format) and input scaler information per DOE (.npz file format) are saved in folder:
 ```text
 trained_models_PINNS/
 ```
