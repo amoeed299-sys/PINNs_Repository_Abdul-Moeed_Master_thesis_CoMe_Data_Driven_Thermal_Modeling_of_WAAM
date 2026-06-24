@@ -59,6 +59,39 @@ Dense 32, ReLU
 Dense 16, ReLU
 Output: 1 temperature value
 ```
+
+To all dense layers, L2 regularization is applied.
+
+**Training Strategy**
+
+Training is done in two stages
+
+Stage 1: Data-only training 
+
+- Maximum epochs: `100`
+- Loss: mean squared error
+- Batch size: `8192`
+- Early stopping and learning-rate reduction are enabled.
+
+Stage 2: PINN learning
+
+- Maximum epochs: `250`
+- Initial physics warm-up: `20 epochs`
+- Maximum batches per epoch: `60`
+- Physics batch size: `2048`
+- BC batch size: `2048`
+- IC batch size: `2048`
+- Gradient clipping: `1.0`
+- Validation-based early stopping: `40 epochs`
+
+The total loss combines:
+
+```text
+Total loss = data loss + PDE loss + boundary-condition loss + initial-condition loss
+```
+
+
+
  
  
 
