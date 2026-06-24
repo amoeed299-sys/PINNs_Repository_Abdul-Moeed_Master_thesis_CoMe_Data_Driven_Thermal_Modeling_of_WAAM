@@ -157,13 +157,13 @@ cd master-thesis/scripts
 Run the shell script:
 
 ```bash
-bash "surrogate_model_training_v1.2(PINNs)_S.Hartmann_split-latest.sh"
+bash "surrogate_model_training_v1.2(PINNs)-latest.sh"
 ```
 
 Or run the Python file directly:
 
 ```bash
-python "surrogate_model_training_v1.2(PINNs)_S.Hartmann_split-latest.py"
+python "surrogate_model_training_v1.2(PINNs)-latest.py"
 ```
 
 The filenames should be quoted because they contain parentheses.
