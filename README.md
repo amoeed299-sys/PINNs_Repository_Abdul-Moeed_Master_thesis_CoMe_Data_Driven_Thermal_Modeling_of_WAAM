@@ -172,6 +172,12 @@ The filenames should be quoted because they contain parentheses.
 
 **Trained Models**
 
+All the trained models are saved in .h5 format in forlder:
+```text
+trained_models_PINNS/
+```
+
+
 
 
 
