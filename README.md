@@ -5,7 +5,7 @@ ________________________________________________________________________________
 **Overview**
 
 This file contains physics-informed neural-network surrogate modelling work developed for a master-thesis on data-driven thermal modeling of Wire Arc Additive Manufacturing process.  
-The input data for PINN model training is obtained from *Simufact Welding 2022 software* where author performed 25 Finite Element Simulations by creating 25 Design of Experiments. The data coming from each simulation is stored in the Parquet file format. The developed NN model is trained 25 times (25 DOE). 
+The input data for PINN model training is obtained from *Simufact Welding 2022 software* where author performed 25 Finite Element Simulations by creating 25 Design of Experiments. The data coming from each simulation is stored in the Parquet file format. The developed PINN model is trained 25 times (25 DOE). 
 
 ____________________________________________________________________________________________________________________________
 
@@ -35,7 +35,7 @@ PINN model is trained 25 times (25 DOE)
 
 ## Workflow
 
-After performing Simufact Welding simulations for all 25 DOE cases, time, nodal coordinates and temperature data is extracted in .UNV files format (per time step). For each DOE, .UNV files are combined in such a way to have one big file, called Parquet file, containing time, nodal coordinates, and temperature in Kelvin, for PINN model training. 72% of data is used for training, 18% for validation, and 10 % for testing. Training is performed in two stages: First 100 epochs for  Data-only neural-network training and physics-informed learning afterwards. Each model is saved and evaluated based on metrics such as, RMSE, MAE, and R^2. All the loss plots, scatter plots (R^2) and PINN predicted verses original temperature-time plots are saved in the folders.
+After performing Simufact Welding simulations for all 25 DOE cases; time, nodal coordinates and temperature data is extracted in .UNV files format (per time step). For each DOE, .UNV files are combined in such a way to have one big file, called Parquet file, containing time, nodal coordinates, and temperature in Kelvin, for PINN model training. 72% of data is used for training, 18% for validation, and 10 % for testing. Training is performed in two stages: First 100 epochs for  Data-only neural-network training and physics-informed learning afterwards. Each model is saved and evaluated based on metrics such as, RMSE, MAE, and R^2. All the loss plots, scatter plots (R^2) and PINN predicted verses original temperature-time plots are saved in the folders.
 
 ____________________________________________________________________________________________________________________________
 
