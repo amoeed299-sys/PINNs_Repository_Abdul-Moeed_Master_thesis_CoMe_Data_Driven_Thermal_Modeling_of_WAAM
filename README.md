@@ -233,7 +233,7 @@ Master’s thesis — Data-Driven Thermal Modeling of Wire Arc Additive Manufact
 
 **Author** 
 
-Abdul-Moeed 
+Abdul-Moeed_M.Sc. Computational Mechanics (@TUM)
 
 
 
